@@ -1,0 +1,2 @@
+class Hut < ApplicationRecord
+end
