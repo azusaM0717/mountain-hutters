@@ -1,24 +1,42 @@
-# README
+# Mountain Hutters
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
 
-Things you may want to cover:
 
-* Ruby version
+### サイトテーマ
+山小屋(Mountain Hut)を利用したい人が集まる、情報共有のためのコミュニティサイト
+​
+### テーマを選んだ理由
+もともと山登りが好きで、春夏秋冬どの山に行こうか計画を立てるのが大好きなのですが、山小屋に関するリアルタイムな情報を探すのにいつも頭を悩ませていました。
+安全な登山計画を立てる際、登山道や山小屋の情報は欠かせないため、山小屋に特化したコミュニティサイトがあれば便利だと考えました。
+山小屋のHPを見ただけではわからない、実際のユーザーの声を集めることで、初心者でも熟練者でも見て探して楽しめるアプリケーションを作りたいと思い開発に至りました。
+ほかの登山者のレビューを参考に登山計画を立てることで、登山をより安全に楽しむことができるでしょう。
 
-* System dependencies
+Mountain Huttersとともに、もっと楽しい山登りの体験を！
+Let's explore with us!
+​
+### ターゲットユーザ
+- 山小屋を利用して日帰り登山したい人
+- 山小屋を利用して宿泊登山したい人
+- どこの山小屋を利用すればいいか悩んでいる人
+​
+### 主な利用シーン
+- 登山計画を立てるとき
+- 自分が利用した山小屋のレビューを投稿するとき
+- 行ったことのない山小屋について情報収集をするとき
+​
+## 設計書
+後ほど作成予定
+​
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
+​
+## 使用素材
+後ほど記載予定
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- このサービスはフィクションであり、実在する山小屋や施設とは関係ありません。
+- なお今後、実在するデータを利用する際には、事前に著作権保持者と契約を結んだ上で利用します。
