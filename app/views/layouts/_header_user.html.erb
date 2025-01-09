@@ -14,30 +14,30 @@
     <nav class="col">
       <ul class="nav-list">
         <% if user_signed_in? %>
-          <li>
-            <%= link_to "マイページ", mypage_path %>
+          <li class="nav-list-item">
+            <%= link_to "マイページ", mypage_path, class: "btn btn-outline-dark" %>
           </li>
-          <li>
-            <%= link_to "検索ページ", search_path %>
+          <li class="nav-list-item">
+            <%= link_to "検索ページ", search_path, class: "btn btn-outline-dark" %>
           </li>
-          <li>
-            <%= link_to "山小屋一覧", huts_path %>
+          <li class="nav-list-item">
+            <%= link_to "山小屋一覧", huts_path, class: "btn btn-outline-dark" %>
           </li>
-          <li>
-            <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+          <li class="nav-list-item">
+            <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-dark" %>
           </li>
         <% else %>
-          <li>
-            <%= link_to "About", about_path %>
+          <li class="nav-list-item">
+            <%= link_to "About", about_path, class: "btn btn-outline-dark" %>
           </li>
-          <li>
-            <%= link_to "山小屋一覧", huts_path %>
+          <li class="nav-list-item">
+            <%= link_to "山小屋一覧", huts_path, class: "btn btn-outline-dark" %>
           </li>
-          <li>
-            <%= link_to "新規登録", new_user_registration_path %>
+          <li class="nav-list-item">
+            <%= link_to "新規登録", new_user_registration_path, class: "btn btn-outline-dark" %>
           </li>
-          <li>
-            <%= link_to "ログイン", new_user_session_path %>
+          <li class="nav-list-item">
+            <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-dark" %>
           </li>
         <% end %>
         </ul>
