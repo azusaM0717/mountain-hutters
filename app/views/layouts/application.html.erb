@@ -11,6 +11,21 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="wrapper">
+      <% if admin_signed_in? %>
+        <%= render "layouts/header_admin" %>
+      <% else %>
+        <%= render "layouts/header_user" %>
+      <% end %>
+      <main class="content">
+        <%= render "layouts/flash_message" %>
+        <%= yield %>
+      </main>
+    </div>
+      
+    <footer class="footer text-center">
+      <p>ⒸCopyRight Mountain Hutters.inc</p>
+    </footer>
+
   </body>
 </html>

@@ -1,0 +1,36 @@
+<header class="header">
+  <div class="container">
+    <div class="row">
+      <a href="/admin" class="col-auto">
+        <%= image_tag "MountainHuttersLogo.png", alt: "MountainHuttersロゴ", style: "width: 150px; height: 150px;" %>
+      </a>
+
+      <nav class="col">
+        <ul class="nav-list">
+          <% if admin_signed_in? %>
+            <li class="nav-list-item">
+              <%= link_to "検索ページ", search_path, class: "btn btn-outline-dark" %>
+            </li>
+            <li class="nav-list-item">
+              <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-outline-dark" %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to "About", about_path %>
+            </li>
+            <li>
+              <%= link_to "山小屋一覧", huts_path %>
+            </li>
+            <li>
+              <%= link_to "新規登録", new_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to "ログイン", new_user_session_path %>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
