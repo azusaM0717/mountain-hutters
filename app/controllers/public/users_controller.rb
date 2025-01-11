@@ -20,9 +20,19 @@ class Public::UsersController < ApplicationController
   end
 
   def unsubscribe
+    Rails.logger.debug "Unsubscribe action reached"
+    # 退会確認ページの表示を行う
   end
+  
 
   def withdraw
+    @user = current_user
+    if @user.update(is_active: false)
+      reset_session
+      redirect_to root_path, motice: "退会処理が完了しました。"
+    else
+      redirect_to mypage_path(@user), alert: "退会処理に失敗しました。"
+    end
   end
 
   private

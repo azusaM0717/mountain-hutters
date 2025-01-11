@@ -27,7 +27,10 @@ Rails.application.routes.draw do
     root to: "homes#top"
     get "/about" => "homes#about"
     resources :huts, only: [:index, :show]
-    resources :users, only: [:show, :edit, :update]
+    resources :users, only: [:show, :edit, :update] do
+      get "unsubscribe", on: :collection
+      patch "withdraw", on: :collection
+    end
     resources :reviews do
       resources :comments, only: [:create, :destroy]
       resources :favorites, only: [:create, :destroy] 
@@ -35,9 +38,7 @@ Rails.application.routes.draw do
     get "/mypage" => "users#show"
     get "/information/edit" => "users#edit"
     patch "/users/edit" => "users#update"
-    get "users/unsubscribe" => "users#unsubscribe"
-    patch "users/withdraw" => "users#withdraw"
-    get "users/favorites" => "users#favorites"
+    get "/users/favorites" => "users#favorites"
     get "/search", to: 'searches#index', as: :search
   end
 end
