@@ -1,2 +1,29 @@
-<h1>Public::Users#show</h1>
-<p>Find me in app/views/public/users/show.html.erb</p>
+<h1>マイページ</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4" style="background-color: #FFFFE0;">
+      <h2>User info</h2>
+        <div>
+          <% if user.present? %>
+            <% if user.image.attached? %>
+              <%= image_tag user.profile_image, size: "100x100" %>
+            <% else %>
+              <%= image_tag 'no_image', size: "100x100" %>
+            <% end %>
+        </div>
+        <div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">name</th>
+                <th scope="col"><%= user.name %></th>
+              </tr>
+            </thead>
+          </table>
+          <% if user.email != "guest@example.com" %>
+            <%= link_to edit_user_path(user), class="btn btn-outline-secondary btn-block" %>
+          <% end %>
+      </div>
+    </div>
+  </div>
+</div>
