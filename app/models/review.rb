@@ -4,7 +4,12 @@ class Review < ApplicationRecord
   has_many :favorites
   has_many :comments
   has_many_attached :images
+
+  validates :title, presence: true
+  validates :body, presence: true
+  validates :rating, presence: true
   validate :image_count_within_limit
+
 
   private
 

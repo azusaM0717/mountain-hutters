@@ -4,8 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates :name, presence: true
+  validates :email, presence: true
+  validates :is_active, inclusion: { in: [true, false] }
+
   has_many :reviews
-  has_many :favorites       
+  has_many :favorites
   has_one_attached :image
 
   GUEST_USER_EMAIL = "guest@example.com"
