@@ -19,7 +19,8 @@ class Public::ReviewsController < ApplicationController
       redirect_to review_path(@review), notice: "レビューを投稿しました！"
     else
       @huts = Hut.all
-      render :new, alert: "投稿に失敗しました。"
+      flash.now[:alert] = "レビューの作成に失敗しました。"
+      render :new
     end
   end
 
@@ -33,6 +34,7 @@ class Public::ReviewsController < ApplicationController
     if @review.update(review_params)
       redirect_to review_path(@review), notice:"変更が保存されました"
     else
+      flash.now[:alert] = "レビューの編集に失敗しました。"
       render :edit
     end
   end

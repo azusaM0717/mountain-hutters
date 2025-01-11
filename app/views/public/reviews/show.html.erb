@@ -2,8 +2,9 @@
 
 <h2><%= @review.title %></h2>
 
-<p><strong>レビュー内容:</strong></p>
-<p><%= @review.body %></p>
+<p><strong>山小屋名:</strong><%= @review.hut.name %></p>
+
+<p><strong>レビュー:</strong><%= @review.body %></p>
 
 <p><strong>評価:</strong><%= @review.rating %> / 5</p>
 
@@ -16,9 +17,13 @@
 
 <p><strong>投稿者:</strong> <%= @review.user.name %></p>
 
-<%= link_to 'レビュー一覧へ戻る', reviews_path, class: "btn btn-primary mr-3" %>
+<p><strong>投稿日:</strong> <%= @review.created_at.strftime('%Y/%m/%d') %></p>
 
 <% if current_user == @review.user %>
   <%= link_to "レビューを編集", edit_review_path(@review), class: "btn btn-primary" %>
   <%= link_to "レビューを削除", review_path(@review), method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %>
 <% end %>
+
+<div>
+  <%= link_to 'レビュー一覧へ戻る', reviews_path, class: "btn btn-primary mt-3" %>
+</div>
