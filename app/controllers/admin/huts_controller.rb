@@ -12,7 +12,7 @@ class Admin::HutsController < ApplicationController
     if @hut.save
       redirect_to admin_hut_path(@hut)
     else
-      render :index
+      render :new
     end
   end
 

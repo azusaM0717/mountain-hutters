@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "homes#top"
-    resources :huts, only: [:new, :index, :show, :edit, :update]
+    resources :huts, only: [:new, :create, :index, :show, :edit, :update]
     resources :users, only: [:index, :show, :edit, :update]
     resources :reviews, only: [:index, :destroy] do
       resources :comments, only: [:index, :destroy] #レビューに対するコメント

@@ -1,2 +1,28 @@
-<h1>Admin::Huts#show</h1>
-<p>Find me in app/views/admin/huts/show.html.erb</p>
+<h1>山小屋詳細ページ</h1>
+
+<div class="container">
+  <div class="row">
+      <table class="table no-border">
+	    <tr>
+        <th>山小屋名</th>
+	      <td><%= @hut.name %></td>
+      </tr>
+      <tr>
+	      <th>緯度</th>
+	      <td><%= @hut.latitude %></td>
+      </tr>
+      <tr>
+        <th>経度</th>
+        <td><%= @hut.longitude %></td>
+      </tr>
+      <tr>
+        <th>説明文</th>
+        <td><%= @hut.description %></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="text-center mt-3">
+  <%= link_to "編集する", edit_admin_hut_path(@hut.id), class: "btn btn-success mb-5" %>
+</div>
