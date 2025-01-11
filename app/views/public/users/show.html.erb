@@ -2,28 +2,34 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4" style="background-color: #FFFFE0;">
-      <h2>User info</h2>
+      <h2>ユーザー情報</h2>
         <div>
-          <% if user.present? %>
-            <% if user.image.attached? %>
-              <%= image_tag user.profile_image, size: "100x100" %>
+          <% if @user.present? %>
+            <% if @user.image.attached? %>
+              <%= image_tag @user.image, size: "100x100", style: "border-radius: 50%; object-fit: cover;" %>
             <% else %>
-              <%= image_tag 'no_image', size: "100x100" %>
+              <%= image_tag 'no_image.jpg', size: "100x100", style: "border-radius: 50%; object-fit: cover;" %>
             <% end %>
         </div>
         <div>
-          <table class="table">
+          <table class="table table-borderless">
             <thead>
               <tr>
                 <th scope="col">name</th>
-                <th scope="col"><%= user.name %></th>
+                <th scope="col"><%= @user.name %></th>
               </tr>
             </thead>
           </table>
-          <% if user.email != "guest@example.com" %>
-            <%= link_to edit_user_path(user), class="btn btn-outline-secondary btn-block" %>
+          <% if @user.email != "guest@example.com" %>
+            <%= link_to "編集", edit_user_path(@user), class: "btn btn-outline-secondary btn-block mb-5" %>
           <% end %>
-      </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="col-md-8">
+      <%= link_to "山小屋を探す", search_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #007bff; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;" %><br>
+      <%= link_to "レビューを書く", new_review_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #007bff; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;" %>
     </div>
   </div>
 </div>

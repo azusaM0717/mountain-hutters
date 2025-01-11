@@ -18,8 +18,9 @@ Rails.application.routes.draw do
     resources :huts, only: [:new, :index, :show, :edit, :update]
     resources :users, only: [:index, :show, :edit, :update]
     resources :reviews, only: [:index, :destroy] do
-      resources :comments, only: [:index, :destroy]
+      resources :comments, only: [:index, :destroy] #レビューに対するコメント
     end
+    resources :comments, only: [:index] #管理者側の全体コメント一覧用
   end
 
   scope module: :public do

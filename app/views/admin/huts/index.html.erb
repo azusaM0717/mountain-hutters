@@ -1,2 +1,28 @@
-<h1>Admin::Huts#index</h1>
-<p>Find me in app/views/admin/huts/index.html.erb</p>
+<h1>山小屋一覧</h1>
+  <%= link_to "山小屋を新規登録する", new_admin_hut_path, class: 'btn btn-success ml-5 mb-3' %>
+
+<div class="container">
+  <div class="row">
+      <table class="table">
+        <thead>
+          <tr class="table-secondary">
+            <th>山小屋名</th>
+            <th>緯度</th>
+            <th>経度</th>
+            <th>説明文</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @hut.each do |hut| %>
+          <tr>
+            <td><%= link_to hut.name, admin_hut_path(hut) %></td>
+            <td><%= hut.latitude %></td>
+            <td><%= hut.longitude %></td>
+            <td><%= hut.description %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+  </div>
+</div>
+
