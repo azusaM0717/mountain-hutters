@@ -1,4 +1,6 @@
 class Public::FavoritesController < ApplicationController
+  before_action :authenticate_user!
+  
   def create
     @favorite = current_user.favorites.create(review_id: params[:review_id])
     redirect_to reviews_path, notice: "レビューにいいねしました！"

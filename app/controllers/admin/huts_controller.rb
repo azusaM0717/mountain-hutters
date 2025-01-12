@@ -1,4 +1,6 @@
 class Admin::HutsController < ApplicationController
+  before_action :authenticate_admin!
+  
   def new
     @hut = Hut.new
   end
