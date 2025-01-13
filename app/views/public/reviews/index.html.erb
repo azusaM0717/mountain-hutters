@@ -1,20 +1,26 @@
 <h2 class="m-3"><%= current_user.name %>さんのレビュー一覧</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>山小屋名</th>
-      <th>タイトル</th>
-      <th>詳細</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @reviews.each do |review| %>
+<div class="container">
+  <% if @reviews.any? %>
+  <table>
+    <thead>
       <tr>
-        <td><%= review.hut.name %></td>
-        <td><%= review.title %></td>
-        <td><%= link_to '詳細を見る', review_path(review), class: 'btn btn-primary' %></td>
+        <th>山小屋名</th>
+        <th>タイトル</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @reviews.each do |review| %>
+        <tr>
+          <td><%= review.hut.name %></td>
+          <td><%= review.title %></td>
+          <td><%= link_to '詳細を見る', review_path(review), class: 'btn btn-primary' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p class="text-center mt-4">まだレビューが投稿されていません。</p>
+<% end %>
+</div>

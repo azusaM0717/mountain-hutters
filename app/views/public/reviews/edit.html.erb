@@ -1,5 +1,16 @@
-<h2 class="m-3">レビューを編集する</h2>
+<% if @review.errors.any? %>
+  <div class="alert alert-danger">
+    <h3>以下のエラーがあります:</h3>
+    <ul>
+      <% @review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
+<h2 class="m-3">レビューを編集する</h2>
+<div class="container">
 <%= form_with model: @review, local: true do |f| %>
   <h4>山小屋名</h4>
   <%= f.collection_select :hut_id, @huts, :id, :name, prompt: '山小屋を選択してください' %>
@@ -18,6 +29,5 @@
   </div>
 <% end %>
 
-<%= link_to "レビュー一覧へ戻る", reviews_path, class: "btn btn-primary mb-3" %>
-
-
+<%= link_to "レビュー一覧へ戻る", reviews_path, class: "btn btn-primary mb-5" %>
+</div>

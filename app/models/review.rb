@@ -10,7 +10,6 @@ class Review < ApplicationRecord
   validates :rating, presence: true
   validate :image_count_within_limit
 
-
   private
 
   def image_count_within_limit

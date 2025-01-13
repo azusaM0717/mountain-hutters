@@ -1,5 +1,16 @@
-<h2 class="m-3">ユーザー情報編集</h2>
+<% if @user.errors.any? %>
+  <div class="alert alert-danger">
+    <h3>以下のエラーがあります:</h3>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
+<h2 class="m-3">ユーザー情報編集</h2>
+<div class="container">
 <%= form_with model: @user, local: true do |f| %>
   <div>
     <%= f.label :name, class: "form-label" %>
@@ -21,3 +32,4 @@
 <% end %>
 
 <%= link_to "マイページへ戻る", mypage_path(@user), class: "btn btn-secondary mt-3 mb-3" %>
+</div>

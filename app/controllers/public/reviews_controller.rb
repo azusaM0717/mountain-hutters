@@ -7,7 +7,7 @@ class Public::ReviewsController < ApplicationController
   end
 
   def index
-    @reviews = Review.includes(:user, :hut).all
+    @reviews = current_user.reviews.includes(:hut).order(created_at: :desc)
   end
 
   def show
@@ -29,10 +29,18 @@ class Public::ReviewsController < ApplicationController
   def edit
     @review = Review.find(params[:id])
     @huts = Hut.all
+    unless @review.user == current_user
+      redirect_to reviews_path, alert: "アクセス権限がありません。"
+    end
   end
 
   def update
     @review = Review.find(params[:id])
+    unless @review.user == current_user
+      redirect_to reviews_path, alert: "アクセス権限がありません。"
+      return
+    end
+    
     if @review.update(review_params)
       redirect_to review_path(@review), notice:"変更が保存されました"
     else
@@ -44,7 +52,7 @@ class Public::ReviewsController < ApplicationController
   def destroy
     review = Review.find(params[:id])
     review.destroy
-    redirect_to mypage_path, notice: "レビューが削除されました"
+    redirect_to reviews_path, notice: "レビューが削除されました"
   end
 
   private

@@ -1,3 +1,14 @@
+<% if @hut.errors.any? %>
+  <div class="alert alert-danger">
+    <h3>以下のエラーがあります:</h3>
+    <ul>
+      <% @hut.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <h2 class="m-3">山小屋情報編集ページ</h2>
 
 <div class="container">

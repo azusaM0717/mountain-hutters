@@ -8,10 +8,18 @@ class Public::UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    unless @user.id == current_user.id
+      redirect_to mypage_path(current_user), alert: "アクセス権限がありません。"
+    end
   end
 
   def update
     @user = User.find(params[:id])
+    unless user.id == current_user.id
+      redirect_to mypage_path(current_user), alert: "アクセス権限がありません。"
+      return
+    end
+
     if @user.update(user_params)
       redirect_to mypage_path(@user), notice: "ユーザー情報を更新しました。"
     else

@@ -1,23 +1,23 @@
 <h2 class="m-3">レビュー詳細</h2>
-
+<div class="container">
 <h2><%= @review.title %></h2>
 
-<p><strong>山小屋名:</strong><%= @review.hut.name %></p>
+<p><strong>山小屋名：</strong><%= @review.hut.name %></p>
 
-<p><strong>レビュー:</strong><%= @review.body %></p>
+<p><strong>レビュー：</strong><%= @review.body %></p>
 
-<p><strong>評価:</strong><%= @review.rating %> / 5</p>
+<p><strong>評価：</strong><%= @review.rating %> / 5</p>
 
 <% if @review.images.attached? %>
-  <h2>画像:</h2>
+  <p><strong>画像：</strong></p>
   <% @review.images.each do |image| %>
     <%= image_tag image %>
   <% end %>
 <% end %>
 
-<p><strong>投稿者:</strong> <%= @review.user.name %></p>
+<p><strong>投稿者：</strong> <%= @review.user.name %></p>
 
-<p><strong>投稿日:</strong> <%= @review.created_at.strftime('%Y/%m/%d') %></p>
+<p><strong>投稿日：</strong> <%= @review.created_at.strftime('%Y/%m/%d') %></p>
 
 <% if current_user == @review.user %>
   <%= link_to "レビューを編集", edit_review_path(@review), class: "btn btn-primary" %>
@@ -25,5 +25,6 @@
 <% end %>
 
 <div>
-  <%= link_to 'レビュー一覧へ戻る', reviews_path, class: "btn btn-primary mt-3" %>
+  <%= link_to 'レビュー一覧へ戻る', reviews_path, class: "btn btn-primary mt-3 mb-5" %>
+</div>
 </div>
