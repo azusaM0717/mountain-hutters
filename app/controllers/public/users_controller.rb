@@ -15,7 +15,7 @@ class Public::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    unless user.id == current_user.id
+    unless @user.id == current_user.id
       redirect_to mypage_path(current_user), alert: "アクセス権限がありません。"
       return
     end
