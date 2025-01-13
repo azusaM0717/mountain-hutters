@@ -1,2 +1,14 @@
-<h1>Public::Huts#show</h1>
-<p>Find me in app/views/public/huts/show.html.erb</p>
+<h2 class="m-3">山小屋情報詳細ページ</h2>
+
+  <table class='table table-borderless'>
+    <tr>
+	    <td style="font-size: 1.5em; font-weight: bold;"><%= @hut.name %></td>
+    </tr>
+    <tr>
+	    <td><%= @hut.description %></td>
+    </tr>
+    <tr>
+      <td><%= link_to "山小屋一覧へ戻る", huts_path, class: "btn btn-primary" %></td>
+    </tr>
+  </table>
+</div>

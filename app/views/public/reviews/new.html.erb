@@ -1,4 +1,4 @@
-<h1>新規レビュー</h1>
+<h2 class="m-3">新規レビュー</h2>
 <%= form_with model: @review, local: true do |f| %>
   <h4>山小屋名</h4>
   <%= f.collection_select :hut_id, @huts, :id, :name, prompt: '山小屋を選択してください' %>

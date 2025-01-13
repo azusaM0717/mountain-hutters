@@ -1,2 +1,24 @@
-<h1>Admin::Users#edit</h1>
-<p>Find me in app/views/admin/users/edit.html.erb</p>
+<h2 class="m-3">ユーザー情報編集ページ</h2>
+
+<div class="container">
+  <div class="row">
+    <div class="col-5">
+      <%= form_with model: @user, url: admin_user_path(@user), method: :patch, local: true, class: "mt-4" do |f| %>
+        <div class="mb-3">
+          <p>名前：<%= @user.name %></p>
+        </div>
+        <div class="mb-3">
+          <p>メールアドレス：<%= @user.email %></p>
+        </div>
+        <div class="mb-3">
+          <%= f.label :is_active, "ステータス", class: "form-label" %>
+          <%= f.select :is_active, [["有効", true], ["退会", false]], {}, class: "form-select" %>
+        </div>
+        <div class="mt-4">
+          <%= f.submit "更新する", class: "btn btn-primary mr-3" %>
+          <%= link_to "キャンセル", admin_user_path(@user), class: "btn btn-secondary " %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

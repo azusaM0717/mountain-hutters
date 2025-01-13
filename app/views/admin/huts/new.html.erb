@@ -1,27 +1,34 @@
-<h1>山小屋新規登録ページ</h1>
-    <%= form_with model: @hut, url: admin_huts_path, method: :post, local: true do |f| %>
-      <table class="table table-borderless">
-        <tr>
-          <td><%= f.label :name, "山小屋名" %></td>
-          <td><%= f.text_field :name %></td>
-        </tr>
-        <tr>
-          <td><%= f.label :latitude, "緯度" %></td>
-          <td><%= f.number_field :latitude, class: "form-control", step: "0.000001" %></td>
-        </tr>
-        <tr>
-          <td><%= f.label :longitude, "経度" %></td>
-          <td><%= f.number_field :longitude, class: "form-control", step: "0.000001" %></td>
-        </tr>
-        <tr>
-          <td><%= f.label :description, "説明文" %></td>
-          <td><%= f.text_area :description, class: "form-control", placeholder: "ここに説明文を記述します" %></td>
-        </tr>
-        <tr>
-          <td colspan="2" class="text-center">
-            <%= f.submit "新規登録", class: "btn btn-success mt-3" %>
-          </td>
-        </tr>
-      </table>
-    <% end %>
+<h2 class="m-3">山小屋新規登録ページ</h2>
+
+<div class="container">
+  <div class="row">
+    <div class="col-10">
+      <%= form_with model: @hut, url: admin_huts_path, method: :post, local: true do |f| %>
+        <table class="table table-borderless">
+          <tr>
+            <td><%= f.label :name, "山小屋名" %></td>
+            <td><%= f.text_field :name %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :latitude, "緯度" %></td>
+            <td><%= f.number_field :latitude, class: "form-control", step: "0.000001" %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :longitude, "経度" %></td>
+            <td><%= f.number_field :longitude, class: "form-control", step: "0.000001" %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :description, "説明文" %></td>
+            <td><%= f.text_area :description, class: "form-control", placeholder: "ここに説明文を記述します" %></td>
+          </tr>
+          <tr>
+            <td>
+              <%= f.submit "新規登録", class: "btn btn-success mt-3" %>
+            </td>
+          </tr>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>
   
