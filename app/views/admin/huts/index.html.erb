@@ -15,7 +15,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @hut.each do |hut| %>
+          <% @huts.each do |hut| %>
           <tr>
             <td><%= link_to hut.name, admin_hut_path(hut) %></td>
             <td><%= hut.latitude %></td>
@@ -26,5 +26,9 @@
         </tbody>
       </table>
   </div>
+</div>
+
+<div class="pagination">
+  <%= paginate @huts %>
 </div>
 

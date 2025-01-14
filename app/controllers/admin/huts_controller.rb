@@ -6,7 +6,7 @@ class Admin::HutsController < ApplicationController
   end
 
   def index
-    @hut = Hut.all
+    @huts = Hut.page(params[:page]).per(10)
   end
 
   def create
