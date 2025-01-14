@@ -2,25 +2,20 @@
 
 <div class="container">
   <% if @reviews.any? %>
-  <table>
-    <thead>
-      <tr>
-        <th>山小屋名</th>
-        <th>タイトル</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
+    <div class="row">
       <% @reviews.each do |review| %>
-        <tr>
-          <td><%= review.hut.name %></td>
-          <td><%= review.title %></td>
-          <td><%= link_to '詳細を見る', review_path(review), class: 'btn btn-primary' %></td>
-        </tr>
+        <div class="col-md-4 mb-4">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title"><%= review.hut.name %></h5>
+              <p class="card-text"><%= review.title %></p>
+              <%= link_to '詳細を見る', review_path(review), class: 'btn btn-primary' %>
+            </div>
+          </div>
+        </div>
       <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p class="text-center mt-4">まだレビューが投稿されていません。</p>
-<% end %>
+    </div>
+  <% else %>
+    <p class="text-center mt-4">まだレビューが投稿されていません。</p>
+  <% end %>
 </div>

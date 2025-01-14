@@ -8,6 +8,9 @@
 	    <td><%= @hut.description %></td>
     </tr>
     <tr>
+      <td><%= link_to "レビューを書く", new_review_path, class: "btn btn-primary" %></td>
+    </tr>
+    <tr>
       <td><%= link_to "山小屋一覧へ戻る", huts_path, class: "btn btn-primary" %></td>
     </tr>
   </table>
