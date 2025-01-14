@@ -43,6 +43,9 @@ class Public::UsersController < ApplicationController
     end
   end
 
+  def favorites
+  end
+
   private
 
   def user_params

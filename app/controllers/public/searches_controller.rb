@@ -2,7 +2,7 @@ class Public::SearchesController < ApplicationController
   before_action :authenticate_user!
   
   def index
-    @huts = Hut.all
+    @huts = Hut.page(params[:page]).per(5)
 
     #キーワード検索
     if params[:keyword].present?
