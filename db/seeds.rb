@@ -8,7 +8,7 @@ Admin.find_or_create_by!(email: admin_email) do |admin|
 end
 
 #山小屋初期データ
-Hut.create!([
+huts_data = [
   { name: "西山山荘", latitude: 35.6895, longitude: 139.6917, description: "西山山荘は、静かな山頂に位置し、登山者に休息を提供する場所です。素晴らしい景色を楽しみながら、心地よい時間を過ごせます。" },
   { name: "東山山荘" , latitude: 35.6897, longitude: 139.6920, description: "東山山荘は東山の頂に建つ歴史ある山小屋で、周囲の自然を満喫しながらゆっくりと過ごせる場所です。"},
   { name: "北山五合目山荘", latitude: 35.6900, longitude: 139.6930, description: "北山五合目山荘は、標高が高く、登山の途中での休憩場所として最適です。絶景が広がります。" },
@@ -23,10 +23,18 @@ Hut.create!([
   { name: "大東山山荘", latitude: 35.7020, longitude: 139.7030, description: "大東山山荘では、標高の高い位置からの景色が見事で、静かな時間を過ごせます。" },
   { name: "小川山小屋", latitude: 35.7030, longitude: 139.7040, description: "小川山小屋は、登山の途中で休憩できる快適な場所で、周囲の自然も魅力です。" },
   { name: "高原山荘", latitude: 35.7040, longitude: 139.7050, description: "高原山荘は、広大な高原に位置し、登山者にとって大自然に包まれたリラックスできる場所です。" }
-])
+]
+
+huts_data.each do |hut_data|
+  Hut.find_or_create_by(name: hut_data[:name]) do |hut|
+    hut.latitude = hut_data[:latitude]
+    hut.longitude = hut_data[:longitude]
+    hut.description = hut_data[:description]
+  end
+end
 
 #サンプルユーザー
-users = User.create!([
+users_data = [
   { name: "ユーザー1", email: "user1@mail", password: "password" , is_active: "true" },
   { name: "ユーザー2", email: "user2@mail", password: "password" , is_active: "true" },
   { name: "ユーザー3", email: "user3@mail", password: "password" , is_active: "true" },
@@ -39,10 +47,18 @@ users = User.create!([
   { name: "ユーザー10", email: "user10@mail", password: "password" , is_active: "true" },
   { name: "ユーザー11", email: "user11@mail", password: "password" , is_active: "true" },
   { name: "ユーザー12", email: "user12@mail", password: "password" , is_active: "true" }
-])
+]
+
+users_data.each do |user_data|
+   User.find_or_create_by(email: user_data[:email]) do |user|
+    user.name = user_data[:name]
+    user.password = user_data[:password]
+    user.is_active = user_data[:is_active]
+  end
+end
 
 # サンプルレビュー
-reviews = Review.create!([
+reviews_data = [
   { title: "素晴らしい山小屋", body: "とても静かで景色が美しかったです。また行きたいです。", rating: 5, hut_id: 1, user_id: 1 },
   { title: "快適な宿泊", body: "休憩に最適で、食事も美味しかったです。", rating: 4, hut_id: 1, user_id: 2 },
   { title: "また訪れたい", body: "登山の途中での休憩には最高でした。", rating: 4, hut_id: 2, user_id: 3 },
@@ -53,5 +69,12 @@ reviews = Review.create!([
   { title: "また行きたい", body: "快適な宿泊ができました。", rating: 4, hut_id: 11, user_id: 3 },
   { title: "最高の体験", body: "食事も美味しく、スタッフも親切でした。", rating: 5, hut_id: 11, user_id: 5 },
   { title: "ゆったりと過ごせた", body: "素晴らしい場所で、リラックスできました。", rating: 4, hut_id: 9, user_id: 9 }
-])
+]
+
+reviews_data.each do |review_data|
+  Review.find_or_create_by(title: review_data[:title], hut_id: review_data[:hut_id], user_id: review_data[:user_id]) do |review|
+    review.body = review_data[:body]
+    review.rating = review_data[:rating]
+  end
+end
 
