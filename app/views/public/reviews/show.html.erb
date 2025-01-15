@@ -23,8 +23,8 @@
         <p><strong>投稿日：</strong> <%= @review.created_at.strftime('%Y/%m/%d') %></p>
 
         <% if current_user == @review.user %>
-          <%= link_to "レビューを編集", edit_review_path(@review), class: "btn btn-primary mr-3" %>
-          <%= link_to "レビューを削除", review_path(@review), method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %>
+          <%= link_to "レビューを編集", edit_review_path(@review), class: "btn btn-primary mr-3 mb-5" %>
+          <%= link_to "レビューを削除", review_path(@review), method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger mb-5' %>
         <% end %>
       </div>
 
@@ -51,7 +51,7 @@
 
       <p>
         <%= comment.body %><br>
-        <span class="text-muted"><%= comment.created_at.strftime('%Y/%m/%dd %H:%M') %></span>
+        <span class="text-muted"><%= comment.created_at.strftime('%Y/%m/%d %H:%M') %></span>
       </p>
     </div>
     </div>
