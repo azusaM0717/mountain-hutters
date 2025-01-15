@@ -18,7 +18,7 @@
               <td><%= comment.user.name %></td>
               <td><%= truncate(comment.body, length: 50) %></td>
               <td><%= comment.created_at.strftime('%Y/%m/%d %H:%M') %></td>
-              <td><%= link_to "削除", admin_comment_path(comment), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm" %></td>
+              <td><%= link_to "削除", admin_review_comment_path(review_id: comment.review_id, id: comment.id), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "btn btn-danger btn-sm" %></td>
             </tr>
           <% end %>
         </tbody>

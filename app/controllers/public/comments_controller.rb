@@ -15,6 +15,8 @@ class Public::CommentsController < ApplicationController
 
   def destroy
     comment = Comment.find(params[:id])
+    comment.destroy
+    redirect_to review_path, notice: "コメントが削除されました"
   end
 
   private
