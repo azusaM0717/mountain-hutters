@@ -1,8 +1,8 @@
 class Review < ApplicationRecord
   belongs_to :user
   belongs_to :hut
-  has_many :favorites
-  has_many :comments
+  has_many :favorites, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many_attached :images
 
   validates :title, presence: true

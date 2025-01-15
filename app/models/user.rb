@@ -8,8 +8,9 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :is_active, inclusion: { in: [true, false] }
 
-  has_many :reviews
-  has_many :favorites
+  has_many :reviews, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   has_one_attached :image
 
   GUEST_USER_EMAIL = "guest@example.com"
