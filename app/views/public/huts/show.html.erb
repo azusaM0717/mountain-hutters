@@ -1,14 +1,36 @@
-<h2 class="m-3">山小屋情報詳細ページ</h2>
-
-  <table class='table table-borderless'>
-    <tr>
-	    <td style="font-size: 1.5em; font-weight: bold;"><%= @hut.name %></td>
-    </tr>
-    <tr>
-	    <td><%= @hut.description %></td>
-    </tr>
-    <tr>
-      <td><%= link_to "山小屋一覧へ戻る", huts_path, class: "btn btn-primary" %></td>
-    </tr>
-  </table>
+<div class="d-flex align-items-center justify-content-between m-3">
+  <h2 class="mb-0">山小屋情報詳細ページ</h2>
+  <div>
+    <%= link_to "レビューを書く", new_review_path, class: "btn btn-primary me-2" %>
+    <%= link_to "山小屋一覧へ戻る", huts_path, class: "btn btn-secondary" %>
+  </div>
 </div>
+
+<table class="table table-borderless" style="background-color: #fff5e0;">
+  <tr>
+    <td style="font-size: 1.5em; font-weight: bold;"><%= @hut.name %></td>
+  </tr>
+  <tr>
+    <td><%= @hut.description %></td>
+  </tr>
+</table>
+
+<h3 class="m-3">この山小屋へのレビュー</h3>
+  <% if @reviews.any? %>
+    <div class="row">
+      <% @reviews.each do |review| %>
+        <div class="col-md-4 m-3">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title"><%= review.title %></h5>
+              <p class="card-text"><%= truncate(review.body, length: 100) %></p>
+              <p class="card-text"><small class="text-muted">投稿者: <%= review.user.name %></small></p>
+              <%= link_to "詳細を見る", review_path(review), class: "btn btn-primary" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center mt-5">まだレビューが投稿されていません。</p>
+  <% end %>

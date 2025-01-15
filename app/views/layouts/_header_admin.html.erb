@@ -9,9 +9,6 @@
         <ul class="nav-list">
           <% if admin_signed_in? %>
             <li class="nav-list-item">
-              <%= link_to "検索ページ", search_path, class: "btn btn-outline-dark" %>
-            </li>
-            <li class="nav-list-item">
               <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-outline-dark" %>
             </li>
           <% else %>
