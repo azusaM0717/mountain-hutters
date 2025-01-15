@@ -1,31 +1,59 @@
-<h2 class="m-3">レビュー詳細</h2>
-<div class="container">
-<h2><%= @review.title %></h2>
-
-<p><strong>山小屋名：</strong><%= @review.hut.name %></p>
-
-<p><strong>レビュー：</strong><%= @review.body %></p>
-
-<p><strong>評価：</strong><%= @review.rating %> / 5</p>
-
-<% if @review.images.attached? %>
-  <p><strong>画像：</strong></p>
-  <% @review.images.each do |image| %>
-    <%= image_tag image %>
-  <% end %>
-<% end %>
-
-<p><strong>投稿者：</strong> <%= @review.user.name %></p>
-
-<p><strong>投稿日：</strong> <%= @review.created_at.strftime('%Y/%m/%d') %></p>
-
-<% if current_user == @review.user %>
-  <%= link_to "レビューを編集", edit_review_path(@review), class: "btn btn-primary mr-3" %>
-  <%= link_to "レビューを削除", review_path(@review), method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %>
-<% end %>
-
-<div>
-  <%= link_to 'レビュー一覧へ戻る', reviews_path, class: "btn btn-primary mt-3 mr-3 mb-5" %>
-  <%= link_to '山小屋詳細へ戻る', hut_path(@hut), class: "btn btn-primary mt-3 mb-5" %>
+<div class="d-flex align-items-center justify-content-between m-3 mb-5">
+  <h2 class="mb-0">レビュー詳細</h2>
+  <div class="d-flex">
+    <%= link_to 'レビュー一覧へ戻る', reviews_path, class: "btn btn-primary mr-2" %>
+    <%= link_to '山小屋詳細へ戻る', hut_path(@hut), class: "btn btn-primary" %>
+  </div>
 </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h4><%= @review.title %></h4>
+        <p><strong>山小屋名：</strong><%= @review.hut.name %></p>
+        <p><strong>レビュー：</strong><%= @review.body %></p>
+        <p><strong>評価：</strong><%= @review.rating %> / 5</p>
+        <% if @review.images.attached? %>
+          <p><strong>画像：</strong></p>
+          <% @review.images.each do |image| %>
+            <%= image_tag image %>
+          <% end %>
+        <% end %>
+        <p><strong>投稿者：</strong> <%= @review.user.name %></p>
+        <p><strong>投稿日：</strong> <%= @review.created_at.strftime('%Y/%m/%d') %></p>
+
+        <% if current_user == @review.user %>
+          <%= link_to "レビューを編集", edit_review_path(@review), class: "btn btn-primary mr-3" %>
+          <%= link_to "レビューを削除", review_path(@review), method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %>
+        <% end %>
+      </div>
+
+      <div class="col-md-6">
+        <h4>コメントを投稿する</h4>
+        <%= form_with model: [@review, @comment], local: true, class: "mt-3" do |f| %>
+          <div class="form-group">
+            <%= f.text_area :body, rows: '3', placeholder: "コメントをここに入力", class: "form-control" %>
+          </div>
+          <%= f.submit "送信する", class: "btn btn-primary mb-3" %>
+        <% end %>
+
+        <h4>コメント一覧（コメント件数：<%= @review.comments.count %>）</h4>
+<div class="mb-4">
+  <% @review.comments.each do |comment| %>
+    <div class="border-bottom mb-2 pb-2">
+      <div class="d-flex">
+      <div class="d-flex flex-column align-items-center mr-3">
+        <div style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background-color: #ffb88f; color: white; font-weight: bold; font-size: 20px; border-radius: 50%;" class="mr-3 d-flex flex-column align-items-center">
+          <%= comment.user.name[0].upcase %>
+        </div>
+        <strong><%= comment.user.name %></strong>
+      </div> 
+
+      <p>
+        <%= comment.body %><br>
+        <span class="text-muted"><%= comment.created_at.strftime('%Y/%m/%dd %H:%M') %></span>
+      </p>
+    </div>
+    </div>
+  <% end %>
 </div>

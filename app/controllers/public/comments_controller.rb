@@ -6,8 +6,11 @@ class Public::CommentsController < ApplicationController
     comment = Comment.new(comment_params)
     comment.user_id = current_user.id
     comment.review_id = review.id
-    comment.save
-    redirect_to review_path(review)
+    if comment.save
+      redirect_to review_path(review), notice: "コメントが投稿されました。"
+    else
+      redirect_to review_path(review), alert: "コメントの投稿に失敗しました。"
+    end
   end
 
   def destroy
