@@ -8,6 +8,7 @@
       <table class="table">
         <thead>
           <tr class="table-secondary">
+            <th></th>
             <th>山小屋名</th>
             <th>緯度</th>
             <th>経度</th>
@@ -17,6 +18,7 @@
         <tbody>
           <% @huts.each do |hut| %>
           <tr>
+            <td><%= hut.id %></td>
             <td><%= link_to hut.name, admin_hut_path(hut) %></td>
             <td><%= hut.latitude %></td>
             <td><%= hut.longitude %></td>

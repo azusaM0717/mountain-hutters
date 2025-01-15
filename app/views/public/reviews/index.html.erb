@@ -9,6 +9,7 @@
             <div class="card-body">
               <h5 class="card-title"><%= review.hut.name %></h5>
               <p class="card-text"><%= review.title %></p>
+              <p class="card-text"><small class="text-muted">投稿日: <%= review.created_at.strftime('%Y/%m/%d') %></small></p>
               <%= link_to '詳細を見る', review_path(review), class: 'btn btn-primary' %>
             </div>
           </div>
@@ -16,6 +17,7 @@
       <% end %>
     </div>
   <% else %>
-    <p class="text-center mt-4">まだレビューが投稿されていません。</p>
+    <p class="text-center mt-4">まだレビューが投稿されていません。<br>
+    マイページからレビューを投稿してみましょう！</p>
   <% end %>
 </div>

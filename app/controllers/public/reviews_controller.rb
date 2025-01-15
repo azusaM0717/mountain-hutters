@@ -12,6 +12,7 @@ class Public::ReviewsController < ApplicationController
 
   def show
     @review = Review.find(params[:id])
+    @hut = @review.hut
   end
 
   def create
