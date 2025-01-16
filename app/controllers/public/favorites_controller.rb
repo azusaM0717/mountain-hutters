@@ -2,12 +2,16 @@ class Public::FavoritesController < ApplicationController
   before_action :authenticate_user!
   
   def create
-    @favorite = current_user.favorites.create(review_id: params[:review_id])
-    redirect_to reviews_path, notice: "レビューにいいねしました！"
+    review = Review.find(params[:review_id])
+    favorite = current_user.favorites.new(review_id: review.id)
+    favorite.save
+    redirect_to review_path(review), notice: "レビューにいいねしました！"
   end
 
   def destroy
-    @favorite = current_user.favorites.find(params[:id])
-    redirect_to reviews_path, notice: "レビューのいいねを取り消しました。"
+    review = Review.find(params[:review_id])
+    favorite = current_user.favorites.find_by(review_id: review.id)
+    favorite.destroy
+    redirect_to review_path(review), notice: "レビューのいいねを取り消しました。"
   end
 end

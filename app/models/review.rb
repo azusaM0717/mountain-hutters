@@ -9,7 +9,12 @@ class Review < ApplicationRecord
   validates :body, presence: true
   validates :rating, presence: true
   validate :image_count_within_limit
+  
 
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
+  end
+  
   private
 
   def image_count_within_limit

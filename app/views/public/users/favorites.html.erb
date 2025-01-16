@@ -1,2 +1,25 @@
-<h1>Public::Users#favorites</h1>
-<p>Find me in app/views/public/users/favorites.html.erb</p>
+<h2 class="m-3"><%= current_user.name %>さんがいいねしたレビュー一覧</h2>
+
+<div class="container">
+  <% if @reviews.any? %>
+    <div class="row">
+      <% @reviews.each do |review| %>
+        <div class="col-md-4 mb-4">
+          <div class="card" style="width: 18rem; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <div class="card-body">
+              <h5 class="card-title"><%= review.hut.name %></h5>
+              <p class="card-text"><%= review.title %></p>
+              <p class="card-text"><small class="text-muted">投稿者: <%= review.user.name %></small></p>
+              <p class="card-text"><small class="text-muted">投稿日: <%= review.created_at.strftime('%Y/%m/%d') %></small></p>
+              <p class="card-text"><small class="text-muted">コメント数：<%= review.comments.count %></small></p>
+              <p class="card-text"><small class="text-muted">いいね数：<%= review.favorites.count %></small></p>
+              <%= link_to '詳細を見る', review_path(review), class: 'btn btn-primary' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center mt-4">いいねをしたレビューはありません。</p>
+  <% end %>
+</div>
