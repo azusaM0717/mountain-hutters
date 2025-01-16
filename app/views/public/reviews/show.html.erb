@@ -38,22 +38,32 @@
         <% end %>
 
         <h4>コメント一覧（コメント件数：<%= @review.comments.count %>）</h4>
-<div class="mb-4">
-  <% @review.comments.each do |comment| %>
-    <div class="border-bottom mb-2 pb-2">
-      <div class="d-flex">
-      <div class="d-flex flex-column align-items-center mr-3">
-        <div style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background-color: #ffb88f; color: white; font-weight: bold; font-size: 20px; border-radius: 50%;" class="mr-3 d-flex flex-column align-items-center">
-          <%= comment.user.name[0].upcase %>
+          <div class="mb-4">
+            <% @review.comments.each do |comment| %>
+              <div class="border-bottom mb-2 pb-2">
+                <div class="d-flex">
+                  <div class="d-flex flex-column align-items-center mr-3">
+                    <div style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background-color: #ffb88f; color: white; font-weight: bold; font-size: 20px; border-radius: 50%;" class="d-flex flex-column align-items-center">
+                      <%= comment.user.name[0].upcase %>
+                    </div>
+                    <strong><%= comment.user.name %></strong>
+                  </div> 
+                  <div>
+                    <p>
+                      <%= comment.body %><br>
+                      <span class="text-muted"><%= comment.created_at.strftime('%Y/%m/%d %H:%M') %></span>
+                    </p>
+                  </div>
+                  <div>
+                    <% if comment.user == current_user %>
+                      <%= link_to "削除", review_comment_path(comment.review, comment), method: :delete, class: "btn btn-danger btn-sm m-2" %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
         </div>
-        <strong><%= comment.user.name %></strong>
-      </div> 
-
-      <p>
-        <%= comment.body %><br>
-        <span class="text-muted"><%= comment.created_at.strftime('%Y/%m/%d %H:%M') %></span>
-      </p>
+      </div>
     </div>
-    </div>
-  <% end %>
-</div>
+  </div>
