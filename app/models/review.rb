@@ -17,4 +17,8 @@ class Review < ApplicationRecord
       errors.add(:images, "は4枚以内にしてください。")
     end
   end
+
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
+  end
 end
