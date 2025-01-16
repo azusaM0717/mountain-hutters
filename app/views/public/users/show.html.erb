@@ -6,9 +6,9 @@
         <div>
           <% if @user.present? %>
             <% if @user.image.attached? %>
-              <%= image_tag @user.image, size: "100x100", style: "border-radius: 50%; object-fit: cover;" %>
+              <%= image_tag @user.image, size: "100x100", class: "ml-3", style: "border-radius: 50%; object-fit: cover;" %>
             <% else %>
-              <%= image_tag 'no_image.jpg', size: "100x100", style: "border-radius: 50%; object-fit: cover;" %>
+              <%= image_tag 'no_image.jpg', size: "100x100", class: "ml-3", style: "border-radius: 50%; object-fit: cover;" %>
             <% end %>
         </div>
         <div>
@@ -28,10 +28,18 @@
     </div>
 
     <div class="col-md-8">
-      <%= link_to "山小屋を探す", search_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #007bff; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;" %><br>
-      <%= link_to "レビューを書く", new_review_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #007bff; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;" %><br>
-      <%= link_to "投稿したレビュー一覧を見る", reviews_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #007bff; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;" %><br>
-      <%= link_to "いいねしたレビュー一覧を見る", users_favorites_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #007bff; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;" %>
+      <%= link_to search_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #007bff; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;"  do %>
+        <i class="fa-solid fa-mountain-sun" style="margin-right: 8px;"></i>山小屋を探す
+      <% end %><br>
+      <%= link_to new_review_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #007bff; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;" do %>
+        <i class="fa-regular fa-pen-to-square" style="margin-right: 8px;"></i>レビューを書く
+      <% end %><br>
+      <%= link_to reviews_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #007bff; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;" do %>
+        <i class="fa-solid fa-square-poll-horizontal" style="margin-right: 8px;"></i>投稿したレビュー一覧を見る
+      <% end %><br>
+      <%= link_to users_favorites_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #007bff; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;" do %>
+        <i class="fa-solid fa-heart" style="margin-right: 8px;"></i>いいねしたレビュー一覧を見る
+      <% end %>
     </div>
   </div>
 </div>
