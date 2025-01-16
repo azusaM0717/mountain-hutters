@@ -26,19 +26,23 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#top"
     get "/about" => "homes#about"
-    resources :huts, only: [:index, :show]
+
+    get "/users/favorites" => "users#favorites"
+    get "/mypage" => "users#show"
+    get "/information/edit" => "users#edit"
+    patch "/users/edit" => "users#update"
     resources :users, only: [:show, :edit, :update] do
       get "unsubscribe", on: :collection
       patch "withdraw", on: :collection
     end
+
     resources :reviews do
       resources :comments, only: [:create, :destroy]
       resource :favorite, only: [:create, :destroy] 
     end
-    get "/mypage" => "users#show"
-    get "/information/edit" => "users#edit"
-    patch "/users/edit" => "users#update"
-    get "/users/favorites" => "users#favorites"
+
+    resources :huts, only: [:index, :show]
+    
     get "/search", to: 'searches#index', as: :search
   end
 end

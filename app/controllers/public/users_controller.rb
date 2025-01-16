@@ -43,7 +43,11 @@ class Public::UsersController < ApplicationController
     end
   end
 
+  # ユーザーがいいねしたレビュー一覧を表示
   def favorites
+    @user = current_user
+    @favorites = @user.favorites.includes(:review)
+    @reviews = @favorites.map(&:review)
   end
 
   private

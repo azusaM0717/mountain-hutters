@@ -5,7 +5,7 @@
     <div class="row">
       <% @reviews.each do |review| %>
         <div class="col-md-4 mb-4">
-          <div class="card" style="width: 18rem;">
+          <div class="card" style="width: 18rem; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <div class="card-body">
               <h5 class="card-title"><%= review.hut.name %></h5>
               <p class="card-text"><%= review.title %></p>
