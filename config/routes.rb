@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     end
     resources :reviews do
       resources :comments, only: [:create, :destroy]
-      resources :favorites, only: [:create, :destroy] 
+      resource :favorite, only: [:create, :destroy] 
     end
     get "/mypage" => "users#show"
     get "/information/edit" => "users#edit"
