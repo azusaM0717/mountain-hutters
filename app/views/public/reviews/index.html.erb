@@ -9,6 +9,7 @@
             <div class="card-body">
               <h5 class="card-title"><%= review.hut.name %></h5>
               <p class="card-text"><%= review.title %></p>
+              <p class="card-text"><%= render "output_star", review: review %></p>
               <p class="card-text"><small class="text-muted">投稿日: <%= review.created_at.strftime('%Y/%m/%d') %></small></p>
               <p class="card-text"><small class="text-muted">コメント数：<%= review.comments.count %></small></p>
               <p class="card-text"><small class="text-muted">いいね数：<%= review.favorites.count %></small></p>
