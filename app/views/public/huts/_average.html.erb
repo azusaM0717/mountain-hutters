@@ -1,0 +1,15 @@
+<div id="average_rating-<%= hut.id %>"></div>
+<% if hut.average_rating.present? %>
+<script>
+    var elem = document.querySelector('#average_rating-<%= hut.id %>');
+    var opt = {
+        starOn: "<%= asset_path("star-on.png") %>",
+        starOff: "<%= asset_path("star-off.png") %>",
+        readOnly: true,
+        score: <%= hut.average_rating %>
+    };
+    raty(elem,opt);
+</script>
+<% else %>
+  <p>まだ評価がありません</p>
+<% end %>
