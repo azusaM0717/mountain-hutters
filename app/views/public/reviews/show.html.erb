@@ -26,8 +26,8 @@
   </div>
 
   <div class="d-flex">
-    <%= link_to 'レビュー一覧へ戻る', reviews_path, class: "btn btn-primary mr-2" %>
-    <%= link_to '山小屋詳細へ戻る', hut_path(@hut), class: "btn btn-primary" %>
+    <%= link_to 'レビュー一覧へ戻る', reviews_path, class: "btn btn-primary mr-2", data: { turbolinks: false } %>
+    <%= link_to '山小屋詳細へ戻る', hut_path(@hut), class: "btn btn-primary", data: { turbolinks: false } %>
   </div>
 </div>
 
@@ -37,7 +37,7 @@
         <h4><%= @review.title %></h4>
         <p><strong>山小屋名：</strong><%= @review.hut.name %></p>
         <p><strong>レビュー：</strong><%= @review.body %></p>
-        <p><strong>評価：</strong><%= @review.rating %> / 5</p>
+        <div class="mb-3"><strong>評価：</strong><%= render "output_star", review: @review %></div>
         <% if @review.images.attached? %>
           <p><strong>画像：</strong></p>
           <% @review.images.each do |image| %>

@@ -2,7 +2,7 @@
   <h2 class="mb-0">山小屋情報詳細ページ</h2>
   <div>
     <%= link_to "レビューを書く", new_review_path, class: "btn btn-primary me-2" %>
-    <%= link_to "山小屋一覧へ戻る", huts_path, class: "btn btn-secondary" %>
+    <%= link_to "山小屋一覧へ戻る", huts_path, class: "btn btn-secondary", data: { turbolinks: false } %>
   </div>
 </div>
 
@@ -17,6 +17,7 @@
 
 <h3 class="m-3">この山小屋へのレビュー</h3>
   <% if @reviews.any? %>
+    <div class="ml-3">評価平均: <%= render "average", hut: @hut %></div>
     <div class="row">
       <% @reviews.each do |review| %>
         <div class="col-md-3 m-3">
@@ -25,7 +26,7 @@
               <h5 class="card-title"><%= review.title %></h5>
               <p class="card-text"><%= truncate(review.body, length: 100) %></p>
               <p class="card-text"><small class="text-muted">投稿者: <%= review.user.name %></small></p>
-              <%= link_to "詳細を見る", review_path(review), class: "btn btn-primary" %>
+              <%= link_to "詳細を見る", review_path(review), class: "btn btn-primary", data: { turbolinks: false } %>
             </div>
           </div>
         </div>

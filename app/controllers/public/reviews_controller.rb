@@ -60,7 +60,6 @@ class Public::ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:title, :body, :rating, :hut_id, images: []).merge(rating: params[:review][:rating] || 1)
-    # rating実装後に.merge以降の記述を削除する。ひとまずデータとして1が送られるようにする。
+    params.require(:review).permit(:title, :body, :rating, :hut_id, images: [])
   end
 end

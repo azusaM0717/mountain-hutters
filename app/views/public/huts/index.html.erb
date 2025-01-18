@@ -7,8 +7,9 @@
         <div class="card h-100">
           <div class="card-body">
             <h5 class="card-title"><%= hut.name %></h5>
+            <div>評価平均: <%= render "average", hut: hut %></div>
             <p class="card-text"><%= truncate(hut.description, length: 100) %></p>
-            <%= link_to "詳細を見る", hut_path(hut), class: "btn btn-primary btn-sm" %>
+            <%= link_to "詳細を見る", hut_path(hut), class: "btn btn-primary btn-sm", data: { turbolinks: false } %>
           </div>
         </div>
       </div>
