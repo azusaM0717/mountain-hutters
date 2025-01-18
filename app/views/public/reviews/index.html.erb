@@ -13,7 +13,7 @@
               <p class="card-text"><small class="text-muted">投稿日: <%= review.created_at.strftime('%Y/%m/%d') %></small></p>
               <p class="card-text"><small class="text-muted">コメント数：<%= review.comments.count %></small></p>
               <p class="card-text"><small class="text-muted">いいね数：<%= review.favorites.count %></small></p>
-              <%= link_to '詳細を見る', review_path(review), class: 'btn btn-primary' %>
+              <%= link_to '詳細を見る', review_path(review), class: 'btn btn-primary', data: { turbolinks: false } %>
             </div>
           </div>
         </div>

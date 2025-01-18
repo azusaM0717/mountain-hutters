@@ -24,8 +24,9 @@
           <div class="card-body">
             <h5 class="card-title"><%= review.hut.name %></h5>
             <p class="card-text" style="text-shadow: none;"><%= truncate(review.body, length: 30) %></p>
+            <p class="card-text"><%= render "public/reviews/output_star", review: review %></p>
             <p class="card-text" style="text-shadow: none;"><small class="text-muted">投稿者: <%= review.user.name %></small></p>
-            <%= link_to "詳細", review_path(review), class: "btn btn-primary" %>
+            <%= link_to "詳細", review_path(review), class: "btn btn-primary", data: { turbolinks: false } %>
           </div>
         </div>
       </div>
