@@ -37,7 +37,7 @@
         <h4><%= @review.title %></h4>
         <p><strong>山小屋名：</strong><%= @review.hut.name %></p>
         <p><strong>レビュー：</strong><%= @review.body %></p>
-        <p><strong>評価：</strong><%= render "output_star", review: @review %></p>
+        <div class="mb-3"><strong>評価：</strong><%= render "output_star", review: @review %></div>
         <% if @review.images.attached? %>
           <p><strong>画像：</strong></p>
           <% @review.images.each do |image| %>

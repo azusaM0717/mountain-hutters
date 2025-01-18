@@ -1,5 +1,4 @@
-<div id="average_rating-<%= hut.id %>"></div>
-<% if hut.average_rating.present? %>
+<span id="average_rating-<%= hut.id %>"></span>
 <script>
     var elem = document.querySelector('#average_rating-<%= hut.id %>');
     var opt = {
@@ -10,6 +9,3 @@
     };
     raty(elem,opt);
 </script>
-<% else %>
-  <p>まだ評価がありません</p>
-<% end %>

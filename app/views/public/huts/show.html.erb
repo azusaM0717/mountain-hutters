@@ -17,6 +17,7 @@
 
 <h3 class="m-3">この山小屋へのレビュー</h3>
   <% if @reviews.any? %>
+    <div class="ml-3">評価平均: <%= render "average", hut: @hut %></div>
     <div class="row">
       <% @reviews.each do |review| %>
         <div class="col-md-3 m-3">
