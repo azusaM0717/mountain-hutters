@@ -1,4 +1,12 @@
-<h2 class="m-3"><%= current_user.name %>さんのレビュー一覧</h2>
+<h2 class="m-3">
+  <% if params[:user_id] %>
+    <%= @user.name %>さんのレビュー一覧
+  <% elsif params[:all_reviews] %>
+    すべてのレビュー一覧
+  <% else %>
+    <%= @user.name %>さんのレビュー一覧
+  <% end %>
+</h2>
 
 <div class="container">
   <% if @reviews.any? %>
@@ -23,4 +31,8 @@
     <p class="text-center mt-4">まだレビューが投稿されていません。<br>
     マイページからレビューを投稿してみましょう！</p>
   <% end %>
+</div>
+
+<div class="pagination">
+  <%= paginate @reviews %>
 </div>

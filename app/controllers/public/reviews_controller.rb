@@ -7,8 +7,21 @@ class Public::ReviewsController < ApplicationController
   end
 
   def index
-    @reviews = current_user.reviews.includes(:hut).order(created_at: :desc)
+    if params[:user_id]
+      # user_idのパラメーターが渡されたときは特定のユーザーのレビューを表示
+      @user = User.find(params[:user_id]) 
+      @reviews = @user.reviews.includes(:hut).order(created_at: :desc).page(params[:page]).per(6)
+    elsif params[:all_reviews]
+      # すべてのレビューを表示するための条件分岐
+      @user = nil
+      @reviews = Review.includes(:hut, :user).order(created_at: :desc).page(params[:page]).per(6)
+    else
+      # ログイン中のユーザーのレビューを表示
+      @user = current_user
+      @reviews = current_user.reviews.includes(:hut).order(created_at: :desc).page(params[:page]).per(6)
+    end
   end
+  
 
   def show
     @review = Review.find(params[:id])
