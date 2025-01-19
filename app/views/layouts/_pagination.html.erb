@@ -1,0 +1,19 @@
+<% if object.respond_to?(:total_pages) && object.total_pages > 1 %>
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      <li class="page-item <%= 'disabled' if object.first_page? %>">
+        <%= link_to raw('<i class="fas fa-chevron-left"></i>'), url_for(params.to_unsafe_h.merge(page: object.current_page - 1)), class: "page-link", aria: { label: "Previous" } %>
+      </li>
+
+      <% (1..object.total_pages).each do |page| %>
+        <li class="page-item <%= 'active' if page == object.current_page %>">
+          <%= link_to page, url_for(params.to_unsafe_h.merge(page: page)), class: "page-link" %>
+        </li>
+      <% end %>
+
+      <li class="page-item <%= 'disabled' if object.last_page? %>">
+        <%= link_to raw('<i class="fas fa-chevron-right"></i>'), url_for(params.to_unsafe_h.merge(page: object.current_page + 1)), class: "page-link", aria: { label: "Next" } %>
+      </li>
+    </ul>
+  </nav>
+<% end %>
