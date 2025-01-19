@@ -29,6 +29,4 @@
   </div>
 </div>
 
-<div class="pagination">
-  <%= paginate @reviews %>
-</div>
+<%= render 'layouts/pagination', object: @reviews %>
