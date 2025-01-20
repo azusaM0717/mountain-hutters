@@ -4,6 +4,10 @@ class Public::ReviewsController < ApplicationController
   def new
     @review = Review.new
     @huts = Hut.all
+    if params[:hut_id]
+      @hut = Hut.find(params[:hut_id])
+      @review.hut = @hut
+    end
   end
 
   def index

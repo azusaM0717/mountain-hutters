@@ -10,11 +10,17 @@
 <% end %>
 
 <h2 class="m-3">新規レビュー</h2>
-<div class="container">
-  <%= form_with model: @review, local: true do |f| %>
-    <h4>山小屋名</h4>
-    <%= f.collection_select :hut_id, @huts, :id, :name, prompt: '山小屋を選択してください' %>
-  
+  <div class="container">
+    <%= form_with model: @review, local: true do |f| %>
+      <% if @hut %>
+        <h4>山小屋名</h4>
+        <input type="text" class="form-control" value="<%= @hut.name %>" disabled>
+        <%= f.hidden_field :hut_id, value: @hut.id %>
+      <% else %>
+        <h4>山小屋を選択</h4>
+        <%= f.collection_select :hut_id, @huts, :id, :name, prompt: "山小屋を選択してください" %>
+      <% end %>
+
     <h4>タイトル</h4>
     <%= f.text_field :title, class: 'form-control' %>
 	
