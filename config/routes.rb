@@ -41,8 +41,12 @@ Rails.application.routes.draw do
       resource :favorite, only: [:create, :destroy] 
     end
 
-    resources :huts, only: [:index, :show]
+    resources :huts, only: [:show] do
+      resources :reviews, only: [:new, :create]
+    end
+    get "/huts" => "huts#index"
     
+
     get "/search", to: 'searches#index', as: :search
   end
 end

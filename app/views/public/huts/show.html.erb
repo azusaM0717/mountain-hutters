@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center justify-content-between m-3">
   <h2 class="mb-0">山小屋情報詳細ページ</h2>
   <div>
-    <%= link_to "レビューを書く", new_review_path, class: "btn me-2", style:"background-color: #ffa500; color: white;" %>
+    <%= link_to "この山小屋のレビューを書く", new_hut_review_path(@hut), class: "btn me-2", style:"background-color: #ffa500; color: white;" %>
     <%= link_to "山小屋一覧へ戻る", huts_path, class: "btn btn-secondary", data: { turbolinks: false } %>
   </div>
 </div>
