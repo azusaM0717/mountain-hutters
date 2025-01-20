@@ -21,24 +21,24 @@
             </thead>
           </table>
           <% if @user.email != "guest@example.com" %>
-            <%= link_to "編集", edit_user_path(@user), class: "btn btn-outline-secondary btn-block mb-5" %>
+            <%= link_to "編集", edit_user_path(@user), class: "btn btn-outline btn-block mb-5", style: "color: #333333; border-color: #333333;" %>
           <% end %>
         </div>
       <% end %>
     </div>
 
     <div class="col-md-8">
-      <%= link_to search_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #007bff; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;"  do %>
+      <%= link_to search_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #3cb371; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;"  do %>
         <i class="fa-solid fa-mountain-sun" style="margin-right: 8px;"></i>山小屋を探す
       <% end %><br>
-      <%= link_to new_review_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #007bff; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;" do %>
+      <%= link_to new_review_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #ffa500; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;" do %>
         <i class="fa-regular fa-pen-to-square" style="margin-right: 8px;"></i>レビューを書く
       <% end %><br>
-      <%= link_to reviews_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #007bff; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;" , data: { turbolinks: false } do %>
+      <%= link_to reviews_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #00bfff; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;" , data: { turbolinks: false } do %>
         <i class="fa-solid fa-square-poll-horizontal" style="margin-right: 8px;"></i>投稿したレビュー一覧を見る
       <% end %><br>
-      <%= link_to users_favorites_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #007bff; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;", data: { turbolinks: false }  do %>
-        <i class="fa-solid fa-heart" style="margin-right: 8px;"></i>いいねしたレビュー一覧を見る
+      <%= link_to users_favorites_path, style: "display: inline-block; padding: 20px 40px; font-size: 18px; background-color: #F7ADC3; color: white; text-align: center; border-radius: 5px; text-decoration: none; margin: 10px;", data: { turbolinks: false }  do %>
+        <i class="fa-solid fa-heart" style="color: red; margin-right: 8px;"></i>いいねしたレビュー一覧を見る
       <% end %>
     </div>
   </div>

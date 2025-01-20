@@ -2,7 +2,7 @@
   <% if params[:user_id] %>
     <%= @user.name %>さんのレビュー一覧
   <% elsif params[:all_reviews] %>
-    すべてのレビュー一覧
+    すべてのレビュー一覧(新着順)
   <% else %>
     <%= @user.name %>さんのレビュー一覧
   <% end %>
