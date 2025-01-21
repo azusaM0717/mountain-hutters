@@ -18,5 +18,10 @@ class Public::SearchesController < ApplicationController
     if params[:sort] == 'newest'
       @huts = @huts.order(created_at: :desc)
     end
+
+    #レビュー数の多い順
+    if params[:sort] == 'review_count_desc'
+      @huts = @huts.left_joins(:reviews).group(:id).order('COUNT(reviews.id) DESC')
+    end
   end
 end

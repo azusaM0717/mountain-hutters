@@ -7,9 +7,13 @@
           <%= f.text_field :keyword, value: params[:keyword], placeholder: "山小屋の名前を入力", 
             style: "width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 20px;" %>
 
-         <%= f.label :sort, "並び順", style: "display: block; margin-bottom: 10px; font-weight: bold;" %>
+        <%= f.label :sort, "並び順", style: "display: block; margin-bottom: 10px; font-weight: bold;" %>
           <%= f.select :sort, 
-            [['評価の高い順', 'rating_desc'], ['新しい投稿順', 'newest']], 
+            [
+              ['評価の高い順', 'rating_desc'],
+              ['新しい投稿順', 'newest'],
+              ['レビュー数の多い順', 'review_count_desc']
+            ], 
             { selected: params[:sort] }, 
             style: "width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 20px;" %>
 
@@ -26,9 +30,9 @@
         <div class="card" style="width: 18rem; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); overflow: hidden; text-align: center;">
           <div class="card-body" style="padding: 20px;">
             <h5 class="card-title" style="font-size: 1.25rem; margin-bottom: 10px;"><%= hut.name %></h5>
-              <p class="card-text" style="margin-bottom: 20px; color: #666;"></p>
-            <%= link_to "詳細を見る", hut_path(hut), 
-              style: "display: inline-block; padding: 10px 15px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 4px;" %>
+            <div>評価平均：<%= render "public/huts/average", hut: hut %></div>
+            <div>総レビュー数：<%= hut.reviews.count %></div>
+            <%= link_to "詳細を見る", hut_path(hut), class: "btn btn-primary mt-2" %>
           </div>
         </div>
       <% end %>
