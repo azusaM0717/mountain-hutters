@@ -3,6 +3,10 @@ class Public::SearchesController < ApplicationController
   
   def index
     @huts = Hut.all
+
+    if params[:keyword].present?
+      @huts = @huts.where("name LIKE ?", "%#{params[:keyword]}%")
+    end
   
     case params[:sort]
     when 'rating_desc'
