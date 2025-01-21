@@ -2,26 +2,24 @@ class Public::SearchesController < ApplicationController
   before_action :authenticate_user!
   
   def index
-    @huts = Hut.page(params[:page]).per(9)
-
-    #キーワード検索
-    if params[:keyword].present?
-      @huts = @huts.where('name LIKE ?', "%#{params[:keyword]}%")
+    @huts = Hut.all
+  
+    case params[:sort]
+    when 'rating_desc'
+      @huts = @huts.joins(:reviews).select("huts.*, AVG(reviews.rating) AS average_rating")
+                   .group("huts.id")
+                   .order("average_rating DESC")
+    when 'review_count_desc'
+      @huts = @huts.joins(:reviews).select("huts.*, COUNT(reviews.id) AS review_count")
+                   .group("huts.id")
+                   .order("review_count DESC")
+    when 'newest'
+      @huts = @huts.joins(:reviews).select("huts.*, MAX(reviews.created_at) AS latest_review")
+                   .group("huts.id")
+                   .order("latest_review DESC")
     end
-
-    #評価の高い順
-    if params[:sort] == 'rating_desc'
-      @huts = @huts.order(rating: :desc)
-    end
-
-    #新しい投稿順
-    if params[:sort] == 'newest'
-      @huts = @huts.order(created_at: :desc)
-    end
-
-    #レビュー数の多い順
-    if params[:sort] == 'review_count_desc'
-      @huts = @huts.left_joins(:reviews).group(:id).order('COUNT(reviews.id) DESC')
-    end
+  
+    @huts = @huts.page(params[:page]).per(6)
   end
+  
 end
