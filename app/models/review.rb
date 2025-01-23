@@ -8,7 +8,7 @@ class Review < ApplicationRecord
   validates :title, presence: true
   validates :body, presence: true
   validates :rating, presence: true
-  validate :image_count_within_limit
+  validate :images_limit
   
 
   def favorited_by?(user)
@@ -17,9 +17,10 @@ class Review < ApplicationRecord
   
   private
 
-  def image_count_within_limit
-    if images.count > 4
-      errors.add(:images, "は4枚以内にしてください。")
+  def images_limit
+    if images.attached? && images.count > 4
+      errors.add(:base, "You can upload up to 4 images")
+      Rails.logger.debug "Validation Error Added: #{errors.full_messages}"
     end
   end
 end
