@@ -46,7 +46,8 @@ Rails.application.routes.draw do
     end
     get "/huts" => "huts#index"
     
-
     get "/search", to: 'searches#index', as: :search
+
+    resources :notifications, only: [:update]
   end
 end
