@@ -60,40 +60,40 @@ class Public::ReviewsController < ApplicationController
     return
   end
 
-  # パラメータをモデルに適用
+  # パラメータをモデルに適用してデータをセット
   @review.assign_attributes(update_review_params)
   new_images = params.dig(:review, :images)
 
   if @review.valid? # 更新前にバリデーションを確認
-    # 画像の検証と保存
+    # 画像の検証(有無・枚数)と保存
     if new_images.present? && new_images.size + @review.images.size <= 4
       new_images.each do |image|
         @review.images.attach(image)
-        sleep(0.5) if Rails.env.development? # 開発環境での負荷軽減
       end
     elsif new_images.present? && new_images.size + @review.images.size > 4
-      @review.errors.add(:base, "画像は4枚までです。")
+      @review.errors.add(:base, "You can upload up to 4 images")
       @huts = Hut.all
       flash.now[:alert] = "レビューの編集に失敗しました。"
       render :edit and return
     end
 
     # データベースの保存
-    if @review.save
-      redirect_to review_path(@review), notice: "変更が保存されました"
+      if @review.save
+        redirect_to review_path(@review), notice: "変更が保存されました"
+      else
+        @huts = Hut.all
+        flash.now[:alert] = "レビューの編集に失敗しました。"
+        render :edit
+      end
     else
+      #画像更新のエラーメッセージが67行目によるバリデーションメッセージとともに表示される
+      if new_images.present? && new_images.size + @review.images.size > 4
+        @review.errors.add(:base, "You can upload up to 4 images")
+      end
       @huts = Hut.all
       flash.now[:alert] = "レビューの編集に失敗しました。"
       render :edit
     end
-  else
-    if new_images.present? && new_images.size + @review.images.size > 4
-      @review.errors.add(:base, "画像は4枚までです。")
-    end
-    @huts = Hut.all
-    flash.now[:alert] = "レビューの編集に失敗しました。"
-    render :edit
-  end
   end  
 
   def destroy
