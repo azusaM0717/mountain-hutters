@@ -72,7 +72,7 @@ class Public::ReviewsController < ApplicationController
       else
         @huts = Hut.all
         flash.now[:alert] = "レビューの編集に失敗しました。"
-        @review.errors.add(:base, "画像は4枚までです.") if new_images.present?
+        @review.errors.add(:base, "画像は4枚までです。") if new_images.present?
         render :edit
       end
     else
