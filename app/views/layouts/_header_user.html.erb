@@ -17,25 +17,50 @@
           <li class="nav-list-item">
             <%= link_to "マイページ", mypage_path, class: "btn btn-outline-dark" %>
           </li>
+
           <li class="nav-list-item">
             <%= link_to "検索ページ", search_path, class: "btn btn-outline-dark", data: { turbolinks: false } %>
           </li>
+
           <li class="nav-list-item">
             <%= link_to "山小屋一覧", huts_path, class: "btn btn-outline-dark", data: { turbolinks: false } %>
           </li>
+
+          <li class="nav-list-item">
+            <%= link_to "#", class: "btn btn-outline-dark dropdown-toggle", id: "dropdownMenuButton", data: { toggle: "dropdown", aria_haspopup: "true", aria_expanded: "false" } do %>
+              <span>通知</span>
+              <span class="badge badge-danger"><%= current_user.notifications.where(read: false).count %></span>
+            <% end %>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <% if current_user.notifications.where(read: false).any? %>
+                <small class="dropdown-item disabled">直近5件の未読の通知を表示しています</small>
+              <% current_user.notifications.where(read: false).limit(5).order(created_at: :desc).each do |notification| %>
+                <%= link_to notification.notification_message, notification_path(notification), method: :patch, class: "dropdown-item" %>
+              <% end %>
+            <% else %>
+              <span class="dropdown-item disabled">未読の通知はありません</span>
+            <% end %>
+            </div>
+          </li>
+
           <li class="nav-list-item">
             <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-dark" %>
           </li>
+
         <% else %>
+
           <li class="nav-list-item">
             <%= link_to "About", about_path, class: "btn btn-outline-dark" %>
           </li>
+
           <li class="nav-list-item">
             <%= link_to "山小屋一覧", huts_path, class: "btn btn-outline-dark" %>
           </li>
+
           <li class="nav-list-item">
             <%= link_to "新規登録", new_user_registration_path, class: "btn btn-outline-dark" %>
           </li>
+
           <li class="nav-list-item">
             <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-dark" %>
           </li>
