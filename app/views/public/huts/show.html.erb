@@ -1,5 +1,5 @@
 <div class="d-flex align-items-center justify-content-between m-3">
-  <h2 class="mb-0">山小屋情報詳細ページ</h2>
+  <h2 class="mb-0">山小屋情報詳細</h2>
   <div>
     <%= link_to "この山小屋のレビューを書く", new_hut_review_path(@hut), class: "btn me-2", style:"background-color: #ffa500; color: white;" %>
     <%= link_to "山小屋一覧へ戻る", huts_path, class: "btn btn-secondary", data: { turbolinks: false } %>
@@ -15,7 +15,7 @@
   </tr>
 </table>
 
-<h3 class="m-3">この山小屋へのレビュー</h3>
+<h3 class="ml-3 mt-5 mb-3">この山小屋へのレビュー</h3>
   <% if @reviews.any? %>
     <div class="ml-3">評価平均: <%= render "average", hut: @hut %></div>
     <div class="row">
