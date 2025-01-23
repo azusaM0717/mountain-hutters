@@ -32,7 +32,7 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-6 pt-4 mb-3" style="background-color: #fff5e0;">
+      <div class="col-md-6 pt-4 mb-3" style="background-color: #fff5e0; border-radius: 10px;">
         <h4><%= @review.title %></h4>
         <p><strong>山小屋名：</strong>
           <%= link_to @review.hut.name, hut_path(@review.hut), data: { turbolinks: false } %>
@@ -60,7 +60,7 @@
         <h4>コメントを投稿する</h4>
         <%= form_with model: [@review, @comment], local: true, class: "mt-3" do |f| %>
           <div class="form-group">
-            <%= f.text_area :body, rows: '3', placeholder: "コメントをここに入力", class: "form-control" %>
+            <%= f.text_area :body, rows: '3', placeholder: "コメントをここに入力(200文字以内)", class: "form-control" %>
           </div>
           <%= f.submit "送信する", class: "btn btn-primary mb-3" %>
         <% end %>
