@@ -55,31 +55,45 @@ class Public::ReviewsController < ApplicationController
   
   def update
     @review = Review.find(params[:id])
-    unless @review.user == current_user
-      redirect_to reviews_path, alert: "アクセス権限がありません。"
-      return
-    end
-    
-    new_images = params.dig(:review, :images)
-    if @review.valid?(update_review_params)
-      if new_images.present? && new_images.size + @review.images.size <= 4
-        params.dig(:review, :images).each do |image|
-          @review.images.attach(image)
-          sleep(0.5) if Rails.env.development?
-        end
-        @review.save
-        redirect_to review_path(@review), notice:"変更が保存されました"
-      else
-        @huts = Hut.all
-        flash.now[:alert] = "レビューの編集に失敗しました。"
-        @review.errors.add(:base, "画像は4枚までです。") if new_images.present?
-        render :edit
+  unless @review.user == current_user
+    redirect_to reviews_path, alert: "アクセス権限がありません。"
+    return
+  end
+
+  # パラメータをモデルに適用
+  @review.assign_attributes(update_review_params)
+  new_images = params.dig(:review, :images)
+
+  if @review.valid? # 更新前にバリデーションを確認
+    # 画像の検証と保存
+    if new_images.present? && new_images.size + @review.images.size <= 4
+      new_images.each do |image|
+        @review.images.attach(image)
+        sleep(0.5) if Rails.env.development? # 開発環境での負荷軽減
       end
+    elsif new_images.present? && new_images.size + @review.images.size > 4
+      @review.errors.add(:base, "画像は4枚までです。")
+      @huts = Hut.all
+      flash.now[:alert] = "レビューの編集に失敗しました。"
+      render :edit and return
+    end
+
+    # データベースの保存
+    if @review.save
+      redirect_to review_path(@review), notice: "変更が保存されました"
     else
       @huts = Hut.all
       flash.now[:alert] = "レビューの編集に失敗しました。"
       render :edit
     end
+  else
+    if new_images.present? && new_images.size + @review.images.size > 4
+      @review.errors.add(:base, "画像は4枚までです。")
+    end
+    @huts = Hut.all
+    flash.now[:alert] = "レビューの編集に失敗しました。"
+    render :edit
+  end
   end  
 
   def destroy
@@ -95,6 +109,6 @@ class Public::ReviewsController < ApplicationController
   end
 
   def update_review_params
-    params.require(:review).permit(:title, :body, :rating, :hut_id, images: [])
+    params.require(:review).permit(:title, :body, :rating, :hut_id)
   end
 end

@@ -1,5 +1,6 @@
 <span id="show_rating-<%= review.id %>"></span>
 <script>
+    $('#show_rating-<%= review.id %>').empty();
     var elem = document.querySelector('#show_rating-<%= review.id %>');
     var opt = {
         starOn: "<%= asset_path("star-on.png") %>",
