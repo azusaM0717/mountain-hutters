@@ -52,7 +52,7 @@ class Public::ReviewsController < ApplicationController
       redirect_to reviews_path, alert: "アクセス権限がありません。"
     end
   end
-
+  
   def update
     @review = Review.find(params[:id])
     unless @review.user == current_user
@@ -60,13 +60,27 @@ class Public::ReviewsController < ApplicationController
       return
     end
     
-    if @review.update(review_params)
-      redirect_to review_path(@review), notice:"変更が保存されました"
+    new_images = params.dig(:review, :images)
+    if @review.valid?(update_review_params)
+      if new_images.present? && new_images.size + @review.images.size <= 4
+        params.dig(:review, :images).each do |image|
+          @review.images.attach(image)
+          sleep(0.5) if Rails.env.development?
+        end
+        @review.save
+        redirect_to review_path(@review), notice:"変更が保存されました"
+      else
+        @huts = Hut.all
+        flash.now[:alert] = "レビューの編集に失敗しました。"
+        @review.errors.add(:base, "画像は4枚までです.") if new_images.present?
+        render :edit
+      end
     else
+      @huts = Hut.all
       flash.now[:alert] = "レビューの編集に失敗しました。"
       render :edit
     end
-  end
+  end  
 
   def destroy
     review = Review.find(params[:id])
@@ -77,6 +91,10 @@ class Public::ReviewsController < ApplicationController
   private
 
   def review_params
+    params.require(:review).permit(:title, :body, :rating, :hut_id, images: [])
+  end
+
+  def update_review_params
     params.require(:review).permit(:title, :body, :rating, :hut_id, images: [])
   end
 end

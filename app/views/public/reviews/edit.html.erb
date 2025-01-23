@@ -1,6 +1,6 @@
 <% if @review.errors.any? %>
   <div class="alert alert-danger">
-    <h3>以下のエラーがあります:</h3>
+    <h3>以下のエラーがあります</h3>
     <ul>
       <% @review.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -21,8 +21,9 @@
   <h4>本文</h4>
   <%= f.text_area :body, class: 'form-control' %>
 
-  <h4>写真</h4>
-  <%= f.file_field :images, multiple: true, accept: 'image/*', class: 'form-control' %>
+  <h4>写真を追加</h4>
+  <p class="text-muted">※現在の写真を含めて最大4枚までアップロード可能です。</p>
+  <%= f.file_field :images, multiple: true, accept: 'image/*', class: 'form-control', data: { limit: 4 } %>
   
   <h4>評価</h4>
   <%= render "output_star", review: @review %>
