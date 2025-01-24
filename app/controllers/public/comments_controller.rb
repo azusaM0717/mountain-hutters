@@ -6,7 +6,13 @@ class Public::CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @comment.user_id = current_user.id
     @comment.review_id = @review.id
-    @comment.save
+
+    if @comment.save
+      render "public/comments/create.js.erb"
+    else
+    # 失敗した場合はエラーメッセージを表示
+      render "public/comments/errors.js.erb"
+    end
   end
 
   def destroy

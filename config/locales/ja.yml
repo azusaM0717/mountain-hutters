@@ -1,0 +1,8 @@
+ja:
+  activerecord:
+    errors:
+      models:
+        comment:
+          body:
+            blank: "コメントを入力してください。"
+              

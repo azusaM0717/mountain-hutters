@@ -1,0 +1,4 @@
+<% if @comment.errors.any? %>
+  var errorMessages = '<%= j render partial: "public/comments/errors", locals: { comment: @comment } %>';
+  $("#error_messages").html(errorMessages);
+<% end %>
