@@ -12,17 +12,9 @@
 <div class="d-flex align-items-center justify-content-between m-3 mb-5">
   <div class="d-flex align-items-center">
     <h2 class="mb-0">レビュー詳細</h2>
-    <% if @review.favorited_by?(current_user) %>
-      <%= button_to review_favorite_path(@review), method: :delete, class: "btn btn-outline-danger ml-3 d-flex align-items-center", remote: true do %>
-        <i class="fa-solid fa-heart"></i>
-        <span class="ml-1">いいね</span>
-      <% end %>
-    <% else %>
-      <%= button_to review_favorite_path(@review), method: :post, class: "btn btn-outline-danger ml-3 d-flex align-items-center", remote: true do %>
-        <i class="fa-regular fa-heart"></i>
-        <span class="ml-1">いいねする</span>
-      <% end %>
-    <% end %>
+    <div id="favorite_btn_<%= @review.id %>">
+      <%= render "public/favorites/btn", review: @review %>
+    </div>
   </div>
 
   <div class="d-flex">
@@ -58,40 +50,18 @@
 
       <div class="col-md-6">
         <h4>コメントを投稿する</h4>
-        <%= form_with model: [@review, @comment], local: true, class: "mt-3" do |f| %>
+        <%= form_with model: [@review, @comment], local: false, class: "mt-3" do |f| %>
           <div class="form-group">
             <%= f.text_area :body, rows: '3', placeholder: "コメントをここに入力(200文字以内)", class: "form-control" %>
           </div>
           <%= f.submit "送信する", class: "btn btn-primary mb-3" %>
         <% end %>
-
+      
         <h4>コメント一覧（コメント件数：<%= @review.comments.count %>）</h4>
-          <div class="mb-4">
-            <% @review.comments.each do |comment| %>
-              <div class="border-bottom mb-2 pb-2">
-                <div class="d-flex">
-                  <div class="d-flex flex-column align-items-center mr-3">
-                    <div style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; background-color: #ffb88f; color: white; font-weight: bold; font-size: 20px; border-radius: 50%;" class="d-flex flex-column align-items-center">
-                      <%= comment.user.name[0].upcase %>
-                    </div>
-                    <strong><%= comment.user.name %></strong>
-                  </div> 
-                  <div>
-                    <p>
-                      <%= comment.body %><br>
-                      <span class="text-muted"><%= comment.created_at.strftime('%Y/%m/%d %H:%M') %></span>
-                    </p>
-                  </div>
-                  <div>
-                    <% if comment.user == current_user %>
-                      <%= link_to "削除", review_comment_path(comment.review, comment), method: :delete, class: "btn btn-danger btn-sm m-2" %>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          </div>
+        <div id="review_comments_<%= @review.id%>">
+          <%= render "public/comments/index", review: @review %>
         </div>
+
       </div>
     </div>
   </div>
