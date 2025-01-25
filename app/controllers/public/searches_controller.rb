@@ -41,12 +41,13 @@ class Public::SearchesController < ApplicationController
           flash.now[:alert] = "開始日は終了日より前の日付を選択してください"
           return
         end
-        @reviews = @reviews.where(created_at: params[:start_date]..params[:end_date])
+        @reviews = @reviews.where(created_at: params[:start_date].to_date.beginning_of_day..params[:end_date].to_date.end_of_day)
       elsif params[:start_date].present?
-        @reviews = @reviews.where("created_at >= ?", params[:start_date])
+        @reviews = @reviews.where("created_at >= ?", params[:start_date].to_date.beginning_of_day)
       elsif params[:end_date].present?
-        @reviews = @reviews.where("created_at <= ?", params[:end_date])
+        @reviews = @reviews.where("created_at <= ?", params[:end_date].to_date.end_of_day)
       end
+      
 
       # 並び順検索
       case params[:sort]
