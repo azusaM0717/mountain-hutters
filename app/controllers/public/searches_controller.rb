@@ -28,7 +28,7 @@ class Public::SearchesController < ApplicationController
       end
 
     when "reviews"
-      @reviews = Review.all
+      @reviews = Review.active_users
 
       # キーワード検索
       if params[:keyword].present?

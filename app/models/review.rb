@@ -10,6 +10,9 @@ class Review < ApplicationRecord
   validates :body, presence: true
   validates :rating, presence: true
   validate :images_limit
+
+  #退会したuserのレビューを非表示にするための記述
+  scope :active_users, -> { joins(:user).where(users: { is_active: true })}
   
 
   def favorited_by?(user)

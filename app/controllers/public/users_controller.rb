@@ -47,7 +47,10 @@ class Public::UsersController < ApplicationController
   def favorites
     @user = current_user
     @favorites = @user.favorites.includes(:review)
-    @reviews = Review.joins(:favorites).where(favorites: { user_id: @user.id }).page(params[:page]).per(6)
+    @reviews = Review.active_users
+                     .joins(:favorites)
+                     .where(favorites: { user_id: @user.id })
+                     .page(params[:page]).per(6)
   end
 
   private

@@ -1,2 +1,2 @@
-$("#review_comments_<%= @review.id %>").html("<%= j(render 'public/comments/index', review: @review) %>");
+$("#review_comments_<%= @review.id %>").html("<%= j(render 'public/comments/index', comments: @comments) %>");
 $("#comment_body").val("");  
