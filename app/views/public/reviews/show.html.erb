@@ -12,9 +12,11 @@
 <div class="d-flex align-items-center justify-content-between m-3 mb-5">
   <div class="d-flex align-items-center">
     <h2 class="mb-0">レビュー詳細</h2>
-    <div id="favorite_btn_<%= @review.id %>">
-      <%= render "public/favorites/btn", review: @review %>
-    </div>
+    <% unless current_user == @review.user %>
+      <div id="favorite_btn_<%= @review.id %>">
+        <%= render "public/favorites/btn", review: @review %>
+      </div>
+    <% end %>
   </div>
 
   <div class="d-flex">
