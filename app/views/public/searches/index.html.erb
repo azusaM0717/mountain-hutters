@@ -1,21 +1,47 @@
 <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 20px;">
   <div class="row" style="display: flex; flex-direction: column; align-items: center;">
-    <div class="col-md-12" style="width: 100%; text-align: center;">
+    <div class="col-md-8" style="width: 100%; text-align: center;">
       <%= form_with url: search_path, method: :get, local: true do |f| %>
         <div class="search-form m-4" style="margin-bottom: 20px;">
+          <%= f.label :search_type, "検索タイプ", for: "search_type_select", style: "display: block; margin-bottom: 10px; font-weight: bold;"  do %>
+            <i class="fa-solid fa-house-chimney"></i> 山小屋検索  or
+            <i class="fa-solid fa-square-poll-horizontal" style="margin-left: 8px;"></i> レビュー検索
+          <% end %>
+          <%= f.select :search_type, 
+            [
+              ['山小屋を探す', 'huts'],
+              ['レビューを探す', 'reviews']
+            ], 
+            { selected: params[:search_type] },
+            { id: "search_type_select", style: "width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 20px;" }
+          %>
+
           <%= f.label :keyword, "キーワードで検索", style: "display: block; margin-bottom: 10px; font-weight: bold;" %>
-          <%= f.text_field :keyword, value: params[:keyword], placeholder: "山小屋の名前を入力", 
+          <%= f.text_field :keyword, value: params[:keyword], placeholder: "", 
             style: "width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 20px;" %>
 
-        <%= f.label :sort, "並び順", style: "display: block; margin-bottom: 10px; font-weight: bold;" %>
-          <%= f.select :sort, 
-            [
-              ['評価の高い順', 'rating_desc'],
-              ['新しい投稿順', 'newest'],
-              ['レビュー数の多い順', 'review_count_desc']
-            ], 
-            { selected: params[:sort] }, 
-            style: "width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 20px;" %>
+          <%= f.label :sort, "並び順", for: "sort_select", style: "display: block; margin-bottom: 10px; font-weight: bold;" %>
+            <%= f.select :sort, 
+              [
+                ['評価の高い順', 'rating_desc'],
+                ['新しい投稿順', 'newest'],
+                ['レビュー数の多い順', 'review_count_desc'],
+                ['いいねの多い順', 'favorites_desc']
+              ], 
+              { selected: params[:sort] }, 
+              { id: "sort_select", style: "width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 20px;" }
+            %>
+
+              <div class="date-fields" id="date-fields" style="display: flex; gap: 20px; margin-bottom: 20px;">
+                <div class="start-date" style="flex: 1;">
+                  <%= f.label :start_date, "開始日", for: "start_date", style: "display: block; margin-bottom: 10px; font-weight: bold;" %>
+                  <%= f.date_field :start_date, id: "start_date", value: params[:start_date], style: "width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 20px;" %>
+                </div>
+                <div class="end-date" style="flex: 1;">
+                  <%= f.label :end_date, "終了日", for: "end_date", style: "display: block; margin-bottom: 10px; font-weight: bold;" %>
+                  <%= f.date_field :end_date, id: "end_date", value: params[:end_date], style: "width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 20px;" %>
+                </div>
+              </div>
 
           <%= f.submit "検索", style: "padding: 10px 20px; background-color: #28A745; color: #fff; border: none; border-radius: 4px; cursor: pointer;" %>
         </div>
@@ -24,22 +50,37 @@
   </div>
 
   <div class="results-container m-5" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-    <% if @huts.any? %>
-      <h3 style="width: 100%; text-align: center; margin-bottom: 20px;">検索結果</h3>
-      <% @huts.each do |hut| %>
-        <div class="card" style="width: 18rem; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); overflow: hidden; text-align: center;">
-          <div class="card-body" style="padding: 20px;">
-            <h5 class="card-title" style="font-size: 1.25rem; margin-bottom: 10px;"><%= hut.name %></h5>
-            <div>評価平均：<%= render "public/huts/average", hut: hut %></div>
-            <div>総レビュー数：<%= hut.reviews.count %></div>
-            <%= link_to "詳細を見る", hut_path(hut), class: "btn btn-primary mt-2" %>
-          </div>
+  <% if @huts.present? && @huts.any? %>  <!-- @hutsがnilでないかつ空でない場合に表示 -->
+    <h3 style="width: 100%; text-align: center; margin-bottom: 20px;">検索結果</h3>
+    <% @huts.each do |hut| %>
+      <div class="card" style="width: 18rem; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); overflow: hidden; text-align: center;">
+        <div class="card-body" style="padding: 20px;">
+          <h5 class="card-title" style="font-size: 1.25rem; margin-bottom: 10px;"><%= hut.name %></h5>
+          <div>評価平均：<%= render "public/huts/average", hut: hut %></div>
+          <div>総レビュー数：<%= hut.reviews.count %></div>
+          <%= link_to "詳細を見る", hut_path(hut), class: "btn btn-primary mt-2" %>
         </div>
-      <% end %>
-    <% else %>
-      <p style="width: 100%; text-align: center; color: #666;">該当する山小屋が見つかりませんでした。</p>
+      </div>
     <% end %>
-  </div>
+  <% elsif @reviews.present? && @reviews.any? %>  <!-- @reviewsがnilでないかつ空でない場合に表示 -->
+    <h3 style="width: 100%; text-align: center; margin-bottom: 20px;">検索結果</h3>
+    <% @reviews.each do |review| %>
+      <div class="card" style="width: 18rem; border: 1px solid #ddd; border-radius: 4px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); overflow: hidden; text-align: center;">
+        <div class="card-body" style="padding: 20px;">
+          <h5 class="card-title" style="font-size: 1.25rem; margin-bottom: 10px;"><%= review.title %></h5>
+          <div style="background-color: #fff5e0; border-radius: 10px; display: inline-block; padding: 5px 10px;"><%= review.hut.name %></div> 
+          <div>投稿者：<%= review.user.name %></div>
+          <div>いいね数：<%= review.favorites.count %></div>
+          <%= link_to "詳細を見る", review_path(review), class: "btn btn-primary mt-2" %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p style="width: 100%; text-align: center; color: #666;">該当する山小屋またはレビューが見つかりませんでした。</p>
+  <% end %>
 </div>
 
-<%= render 'layouts/pagination', object: @huts %>
+
+<%= render 'layouts/pagination', object: @huts %> 
+<%= render 'layouts/pagination', object: @reviews %> 
+
