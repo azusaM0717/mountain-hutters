@@ -14,15 +14,25 @@ class Public::ReviewsController < ApplicationController
     if params[:user_id]
       # user_idのパラメーターが渡されたときは特定のユーザーのレビューを表示
       @user = User.find(params[:user_id]) 
-      @reviews = @user.reviews.includes(:hut).order(created_at: :desc).page(params[:page]).per(6)
+      @reviews = @user.reviews
+                      .includes(:hut)
+                      .active_users
+                      .order(created_at: :desc)
+                      .page(params[:page]).per(6)
     elsif params[:all_reviews]
       # すべてのレビューを表示するための条件分岐
       @user = nil
-      @reviews = Review.includes(:hut, :user).order(created_at: :desc).page(params[:page]).per(6)
+      @reviews = Review.active_users
+                       .includes(:hut, :user)
+                       .order(created_at: :desc)
+                       .page(params[:page]).per(6)
     else
       # ログイン中のユーザーのレビューを表示
       @user = current_user
-      @reviews = current_user.reviews.includes(:hut).order(created_at: :desc).page(params[:page]).per(6)
+      @reviews = current_user.reviews
+                             .includes(:hut)
+                             .order(created_at: :desc)
+                             .page(params[:page]).per(6)
     end
   end
   
@@ -31,6 +41,7 @@ class Public::ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @hut = @review.hut
     @comment = Comment.new
+    @comments = @review.comments.active_users.includes(:user)
   end
 
   def create

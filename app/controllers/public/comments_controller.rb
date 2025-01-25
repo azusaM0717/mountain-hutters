@@ -8,6 +8,7 @@ class Public::CommentsController < ApplicationController
     @comment.review_id = @review.id
 
     if @comment.save
+      @comments = @review.comments.active_users.includes(:user)
       render "public/comments/create.js.erb"
     else
     # 失敗した場合はエラーメッセージを表示
@@ -19,6 +20,8 @@ class Public::CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @review = @comment.review
     @comment.destroy
+    @comments = @review.comments.active_users.includes(:user)
+      render "public/comments/destroy.js.erb"
   end
 
   private

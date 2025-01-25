@@ -5,6 +5,9 @@ class Public::HutsController < ApplicationController
 
   def show
     @hut = Hut.find(params[:id])
-    @reviews = @hut.reviews.includes(:user).order(created_at: :desc)
+    @reviews = @hut.reviews
+                   .active_users
+                   .includes(:user)
+                   .order(created_at: :desc)
   end
 end

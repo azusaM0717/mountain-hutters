@@ -19,7 +19,7 @@
           <% if review.images.attached? %>
             <%= image_tag review.images.first, class: "card-img-top", alt: "Hut Image", style: "width: 100%; height: 200px; object-fit: cover; object-position: center;" %>
           <% else %>
-            <img src="review_no_image.jpg" class="card-img-top" alt="No Image" style="width: 100%; height: 200px; object-fit: cover; object-position: center;">
+            <%= image_tag "review_no_image.jpg", class: "card-img-top", alt: "No Image", style: "width: 100%; height: 200px; object-fit: cover; object-position: center;" %>
           <% end %>
           <div class="card-body">
             <h5 class="card-title"><%= review.hut.name %></h5>
