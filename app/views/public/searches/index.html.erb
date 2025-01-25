@@ -17,7 +17,7 @@
           %>
 
           <%= f.label :keyword, "キーワードで検索", style: "display: block; margin-bottom: 10px; font-weight: bold;" %>
-          <%= f.text_field :keyword, value: params[:keyword], placeholder: "", 
+          <%= f.text_field :keyword, value: params[:keyword], placeholder: "例：東、宿泊 など", 
             style: "width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 20px;" %>
 
           <%= f.label :sort, "並び順", for: "sort_select", style: "display: block; margin-bottom: 10px; font-weight: bold;" %>
