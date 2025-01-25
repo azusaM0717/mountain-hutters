@@ -55,7 +55,7 @@ class Public::SearchesController < ApplicationController
       when 'favorites_desc'
         @reviews = @reviews.left_joins(:favorites)
                            .group("reviews.id")
-                           .order("COUNT(favorites.id) DESC")
+                           .order("COUNT(favorites.id) DESC, reviews.created_at DESC")
       end
     end
 

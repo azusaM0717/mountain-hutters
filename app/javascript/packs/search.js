@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", function() {
     } else if (searchTypeSelect.value === 'reviews') {
       // レビュー検索の場合
       sortSelect.innerHTML = `
-        <option value="newest">新しい投稿順</option>
-        <option value="like_count_desc">いいねの多い順</option>
+        <option value="newest">新着順</option>
+        <option value="favorites_desc">いいねの多い順</option>
       `;
     }
   }
