@@ -1,41 +1,31 @@
-<% if @review.errors.any? %>
-  <div class="alert alert-danger">
-    <h3>以下のエラーがあります</h3>
-    <ul>
-      <% @review.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<%= render "layouts/error_message", object: @review %>
 
 <h2 class="m-3">レビューを編集する</h2>
-<div class="container">
-<%= form_with model: @review, local: true do |f| %>
-  <h4>山小屋名</h4>
-  <p style="background-color: #fff5e0; padding: 10px; border-radius: 5px;">
-    <%= @review.hut.name %>
-  </p>
-  <%= f.hidden_field :hut_id, value: @review.hut_id %>
+  <div class="container">
+    <%= form_with model: @review, local: true do |f| %>
+      <h4>山小屋名</h4>
+      <p style="background-color: #fff5e0; padding: 10px; border-radius: 5px;">
+        <%= @review.hut.name %>
+      </p>
+      <%= f.hidden_field :hut_id, value: @review.hut_id %>
   
-  <h4>タイトル</h4>
-  <%= f.text_field :title, class: 'form-control' %>
+      <h4>タイトル</h4>
+      <%= f.text_field :title, class: 'form-control' %>
 
-  <h4>本文</h4>
-  <%= f.text_area :body, class: 'form-control' %>
+      <h4>本文</h4>
+      <%= f.text_area :body, class: 'form-control' %>
 
-  <h4>写真を追加</h4>
-  <p class="text-muted">※現在の写真を含めて最大4枚までアップロード可能です。</p>
-  <%= f.file_field :images, multiple: true, accept: 'image/*', class: 'form-control', data: { limit: 4 } %>
+      <h4>写真を追加</h4>
+      <p class="text-muted">※現在の写真を含めて最大4枚までアップロード可能です。</p>
+      <%= f.file_field :images, multiple: true, accept: 'image/*', class: 'form-control', data: { limit: 4 } %>
   
-  <h4>評価</h4>
-  <p class="text-muted">※評価は変更することができません。</p>
-  <%= render "output_star", review: @review %>
+      <h4>評価</h4>
+      <p class="text-muted">※評価は変更することができません。</p>
+      <%= render "output_star", review: @review %>
 
-  <div class="mt-3 mb-3">
-    <%= f.submit "更新", class: 'btn btn-success' %>
+      <div class="mt-3 mb-3">
+        <%= f.submit "更新", class: 'btn btn-success' %>
+      </div>
+    <% end %>
+    <%= link_to "レビュー一覧へ戻る", reviews_path, class: "btn btn-secondary mb-5" %>
   </div>
-<% end %>
-
-<%= link_to "レビュー一覧へ戻る", reviews_path, class: "btn btn-secondary mb-5" %>
-</div>

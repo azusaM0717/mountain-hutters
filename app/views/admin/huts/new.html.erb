@@ -1,13 +1,4 @@
-<% if @hut.errors.any? %>
-  <div class="alert alert-danger">
-    <h3>以下のエラーがあります:</h3>
-    <ul>
-      <% @hut.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<%= render "layouts/error_message", object: @hut %>
 
 <h2 class="m-3">山小屋新規登録ページ</h2>
 
@@ -33,9 +24,7 @@
             <td><%= f.text_area :description, class: "form-control", placeholder: "ここに説明文を記述します" %></td>
           </tr>
           <tr>
-            <td>
-              <%= f.submit "新規登録", class: "btn btn-success mt-3" %>
-            </td>
+            <td><%= f.submit "新規登録", class: "btn btn-success mt-3" %></td>
           </tr>
         </table>
       <% end %>

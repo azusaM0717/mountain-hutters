@@ -1,13 +1,4 @@
-<% if @review.errors.any? %>
-  <div class="alert alert-danger">
-    <h3>以下のエラーがあります</h3>
-    <ul>
-      <% @review.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<%= render "layouts/error_message", object: @review %>
 
 <h2 class="m-3">新規レビュー</h2>
   <div class="container">

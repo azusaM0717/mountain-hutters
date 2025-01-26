@@ -2,7 +2,9 @@ class Admin::ReviewsController < ApplicationController
   before_action :authenticate_admin!
   
   def index
-    @reviews = Review.includes(:hut, :user).order(created_at: :desc).page(params[:page]).per(10)
+    @reviews = Review.includes(:hut, :user)
+                     .order(created_at: :desc)
+                     .page(params[:page]).per(10)
   end
 
   def destroy

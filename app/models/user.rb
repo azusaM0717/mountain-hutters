@@ -3,16 +3,16 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
-  validates :name, presence: true
-  validates :email, presence: true
-  validates :is_active, inclusion: { in: [true, false] }
-
+  
   has_many :reviews, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_one_attached :image
+
+  validates :name, presence: true
+  validates :email, presence: true
+  validates :is_active, inclusion: { in: [true, false] }
 
   GUEST_USER_EMAIL = "guest@example.com"
 
