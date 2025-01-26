@@ -21,7 +21,7 @@
             </thead>
           </table>
           <% if @user.email != "guest@example.com" %>
-            <%= link_to "編集", edit_user_path(@user), class: "btn btn-outline-dark btn-block mb-5 btn-hover" %>
+            <%= link_to "編集", "/information/edit", class: "btn btn-outline-dark btn-block mb-5 btn-hover" %>
           <% end %>
         </div>
       <% end %>

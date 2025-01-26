@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     get "/mypage" => "users#show"
     get "/information/edit" => "users#edit"
     patch "/users/edit" => "users#update"
-    resources :users, only: [:show, :edit, :update] do
+    resources :users, only: [:show, :update] do
       get "unsubscribe", on: :collection
       patch "withdraw", on: :collection
     end

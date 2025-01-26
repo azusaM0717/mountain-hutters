@@ -7,21 +7,21 @@ class Public::UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = current_user
     unless @user.id == current_user.id
       redirect_to mypage_path(current_user), alert: "アクセス権限がありません"
     end
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = current_user
     unless @user.id == current_user.id
       redirect_to mypage_path(current_user), alert: "アクセス権限がありません"
       return
     end
 
     if @user.update(user_params)
-      redirect_to mypage_path(@user), notice: "ユーザー情報を更新しました"
+      redirect_to "/mypage", notice: "ユーザー情報を更新しました"
     else
       render :edit, alert: "ユーザー情報の更新に失敗しました"
     end
@@ -59,8 +59,7 @@ class Public::UsersController < ApplicationController
   end
 
   def ensure_guest_user
-    @user = User.find(params[:id])
-    if @user.email == "guest@example.com"
+    if current_user.email == "guest@example.com"
       redirect_to user_path(current_user) , notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
     end
   end
