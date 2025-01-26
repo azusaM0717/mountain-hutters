@@ -14,7 +14,6 @@ class Review < ApplicationRecord
   #退会したuserのレビューを非表示にするための記述
   scope :active_users, -> { joins(:user).where(users: { is_active: true })}
   
-
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
@@ -24,7 +23,6 @@ class Review < ApplicationRecord
   def images_limit
     if images.attached? && images.count > 4
       errors.add(:base, "You can upload up to 4 images")
-      Rails.logger.debug "Validation Error Added: #{errors.full_messages}"
     end
   end
 end

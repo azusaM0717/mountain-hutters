@@ -1,42 +1,34 @@
-<% if @hut.errors.any? %>
-  <div class="alert alert-danger">
-    <h3>以下のエラーがあります:</h3>
-    <ul>
-      <% @hut.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<%= render "layouts/error_message", object: @hut %>
 
 <h2 class="m-3">山小屋情報編集ページ</h2>
 
 <div class="container">
   <div class="row">
     <div class="col-10">
-    <%= form_with model: @hut, url: admin_hut_path(@hut), method: :patch, local: true do |f| %>
-  <table class="table table-borderless">
-    <tr>
-      <td><%= f.label :name, "山小屋名" %></td>
-      <td><%= f.text_field :name %></td>
-    </tr>
-    <tr>
-      <td><%= f.label :latitude, "緯度" %></td>
-      <td><%= f.number_field :latitude, class: "form-control", step: "0.000001" %></td>
-    </tr>
-    <tr>
-      <td><%= f.label :longitude, "経度" %></td>
-      <td><%= f.number_field :longitude, class: "form-control", step: "0.000001" %></td>
-    </tr>
-    <tr>
-      <td><%= f.label :description, "説明文" %></td>
-      <td><%= f.text_area :description, class: "form-control", placeholder: "ここに説明文を記述します" %></td>
-    </tr>
-    <tr>
-      <td>
-        <%= f.submit "変更を保存", class: "btn btn-success mt-3" %>
-      </td>
-    </tr>
-  </table>
-<% end %>
+      <%= form_with model: @hut, url: admin_hut_path(@hut), method: :patch, local: true do |f| %>
+        <table class="table table-borderless">
+          <tr>
+            <td><%= f.label :name, "山小屋名" %></td>
+            <td><%= f.text_field :name %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :latitude, "緯度" %></td>
+            <td><%= f.number_field :latitude, class: "form-control", step: "0.000001" %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :longitude, "経度" %></td>
+            <td><%= f.number_field :longitude, class: "form-control", step: "0.000001" %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :description, "説明文" %></td>
+            <td><%= f.text_area :description, class: "form-control", placeholder: "ここに説明文を記述します" %></td>
+          </tr>
+          <tr>
+            <td><%= f.submit "変更を保存", class: "btn btn-success mt-3" %></td>
+          </tr>
+        </table>
+      <% end %>
+    </div>
+  </div>
+</div>
 

@@ -4,6 +4,7 @@ class Public::ReviewsController < ApplicationController
   def new
     @review = Review.new
     @huts = Hut.all
+    # 山小屋詳細ページからレビュー投稿フォームに遷移する場合、hut_idが渡される
     if params[:hut_id]
       @hut = Hut.find(params[:hut_id])
       @review.hut = @hut
@@ -20,7 +21,7 @@ class Public::ReviewsController < ApplicationController
                       .order(created_at: :desc)
                       .page(params[:page]).per(6)
     elsif params[:all_reviews]
-      # すべてのレビューを表示するための条件分岐
+      # すべてのレビュー
       @user = nil
       @reviews = Review.active_users
                        .includes(:hut, :user)
@@ -41,7 +42,7 @@ class Public::ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @hut = @review.hut
     @comment = Comment.new
-    @comments = @review.comments.active_users.includes(:user)
+    @comments = @review.comments.active_users.includes(:user) #is_active :trueのコメントのみ表示される
   end
 
   def create
@@ -51,7 +52,7 @@ class Public::ReviewsController < ApplicationController
       redirect_to review_path(@review), notice: "レビューを投稿しました！"
     else
       @huts = Hut.all
-      flash.now[:alert] = "レビューの作成に失敗しました。"
+      flash.now[:alert] = "レビューの作成に失敗しました"
       render :new
     end
   end
@@ -60,14 +61,14 @@ class Public::ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @huts = Hut.all
     unless @review.user == current_user
-      redirect_to reviews_path, alert: "アクセス権限がありません。"
+      redirect_to reviews_path, alert: "アクセス権限がありません"
     end
   end
   
   def update
     @review = Review.find(params[:id])
   unless @review.user == current_user
-    redirect_to reviews_path, alert: "アクセス権限がありません。"
+    redirect_to reviews_path, alert: "アクセス権限がありません"
     return
   end
 
@@ -84,7 +85,7 @@ class Public::ReviewsController < ApplicationController
     elsif new_images.present? && new_images.size + @review.images.size > 4
       @review.errors.add(:base, "You can upload up to 4 images")
       @huts = Hut.all
-      flash.now[:alert] = "レビューの編集に失敗しました。"
+      flash.now[:alert] = "レビューの編集に失敗しました"
       render :edit and return
     end
 
@@ -93,16 +94,16 @@ class Public::ReviewsController < ApplicationController
         redirect_to review_path(@review), notice: "変更が保存されました"
       else
         @huts = Hut.all
-        flash.now[:alert] = "レビューの編集に失敗しました。"
+        flash.now[:alert] = "レビューの編集に失敗しました"
         render :edit
       end
     else
-      #画像更新のエラーメッセージが67行目によるバリデーションメッセージとともに表示される
+      #画像更新のエラーメッセージが79行目によるバリデーションメッセージとともに表示される
       if new_images.present? && new_images.size + @review.images.size > 4
         @review.errors.add(:base, "You can upload up to 4 images")
       end
       @huts = Hut.all
-      flash.now[:alert] = "レビューの編集に失敗しました。"
+      flash.now[:alert] = "レビューの編集に失敗しました"
       render :edit
     end
   end  

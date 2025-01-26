@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center justify-content-between m-3">
   <h2 class="mb-0">山小屋情報詳細</h2>
   <div>
-    <%= link_to "この山小屋のレビューを書く", new_hut_review_path(@hut), class: "btn me-2", style:"background-color: #ffa500; color: white;" %>
+    <%= link_to "この山小屋のレビューを書く", new_hut_review_path(@hut), class: "btn mr-2", style:"background-color: #ffa500; color: white;" %>
     <%= link_to "山小屋一覧へ戻る", huts_path, class: "btn btn-secondary", data: { turbolinks: false } %>
   </div>
 </div>
@@ -18,19 +18,20 @@
 <h3 class="ml-3 mt-5 mb-3">この山小屋へのレビュー</h3>
   <% if @reviews.any? %>
     <div class="ml-3">評価平均: <%= render "average", hut: @hut %></div>
-    <div class="row">
-      <% @reviews.each do |review| %>
-        <div class="col-md-3 m-3">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title"><%= review.title %></h5>
-              <p class="card-text"><%= truncate(review.body, length: 100) %></p>
-              <p class="card-text"><small class="text-muted">投稿者: <%= review.user.name %></small></p>
-              <%= link_to "詳細を見る", review_path(review), class: "btn btn-primary", data: { turbolinks: false } %>
+      <div class="row">
+        <% @reviews.each do |review| %>
+          <div class="col-md-3 m-3">
+            <div class="card" style="width: 18rem;">
+              <div class="card-body">
+                <h5 class="card-title"><%= review.title %></h5>
+                <p class="card-text"><%= truncate(review.body, length: 100) %></p>
+                <p class="card-text"><small class="text-muted">投稿者: <%= review.user.name %></small></p>
+                <%= link_to "詳細を見る", review_path(review), class: "btn btn-primary", data: { turbolinks: false } %>
+              </div>
             </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   <% else %>
     <p class="text-center mt-5">まだレビューが投稿されていません。</p>

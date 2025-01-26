@@ -1,6 +1,7 @@
 class Public::HutsController < ApplicationController
   def index
-    @huts = Hut.includes(:reviews).page(params[:page]).per(6)
+    @huts = Hut.includes(:reviews)
+               .page(params[:page]).per(6)
   end
 
   def show

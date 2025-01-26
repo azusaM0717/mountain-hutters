@@ -3,7 +3,7 @@ class Public::SearchesController < ApplicationController
   
   def index
     case params[:search_type]
-    when "huts"
+    when "huts" # 山小屋を検索する場合
       @huts = Hut.all
 
       # キーワード検索
@@ -25,7 +25,7 @@ class Public::SearchesController < ApplicationController
                      .order("review_count DESC")
       end
 
-    when "reviews"
+    when "reviews" # レビューを検索する場合
       @reviews = Review.active_users
 
       # キーワード検索
@@ -46,7 +46,6 @@ class Public::SearchesController < ApplicationController
         @reviews = @reviews.where("created_at <= ?", params[:end_date].to_date.end_of_day)
       end
       
-
       # 並び順検索
       case params[:sort]
       when 'newest'
