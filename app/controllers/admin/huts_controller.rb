@@ -12,7 +12,7 @@ class Admin::HutsController < ApplicationController
   def create
     @hut = Hut.new(hut_params)
     if @hut.save
-      redirect_to admin_hut_path(@hut)
+      redirect_to admin_hut_path(@hut), notice:"山小屋を新規登録しました"
     else
       render :new
     end

@@ -14,17 +14,15 @@ class Public::SearchesController < ApplicationController
       # 並び順検索
       case params[:sort]
       when 'rating_desc'
-        @huts = @huts.joins(:reviews).select("huts.*, AVG(reviews.rating) AS average_rating")
+        @huts = @huts.left_joins(:reviews) #まだratingのない山小屋も結果に表示されるようにするため
+                     .select("huts.*, COALESCE(AVG(reviews.rating), 0) AS average_rating")
                      .group("huts.id")
                      .order("average_rating DESC")
       when 'review_count_desc'
-        @huts = @huts.joins(:reviews).select("huts.*, COUNT(reviews.id) AS review_count")
+        @huts = @huts.left_joins(:reviews) #まだレビューのない山小屋も結果に表示されるようにするため
+                     .select("huts.*, COALESCE(COUNT(reviews.id), 0) AS review_count")
                      .group("huts.id")
                      .order("review_count DESC")
-      when 'newest'
-        @huts = @huts.joins(:reviews).select("huts.*, MAX(reviews.created_at) AS latest_review")
-                     .group("huts.id")
-                     .order("latest_review DESC")
       end
 
     when "reviews"
