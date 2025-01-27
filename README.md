@@ -23,8 +23,8 @@
 - 行ったことのない山小屋について情報収集をするとき
 ​
 ## 設計書
-- ![ER図_MountainHutters](https://github.com/user-attachments/assets/d0657e32-15da-43ad-8042-2559d847ea82)
-- ![UIFlows_MountainHutterspng](https://github.com/user-attachments/assets/722be10c-1fbd-4e73-bb84-0273c9f452c4)
+ ![ER図_MountainHutters](https://github.com/user-attachments/assets/d0657e32-15da-43ad-8042-2559d847ea82)
+ ![UIFlows_MountainHutterspng](https://github.com/user-attachments/assets/722be10c-1fbd-4e73-bb84-0273c9f452c4)
 
 ​
 ## 開発環境
