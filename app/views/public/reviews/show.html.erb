@@ -7,6 +7,10 @@
       <div id="favorite_btn_<%= @review.id %>">
         <%= render "public/favorites/btn", review: @review %>
       </div>
+    <% else %>
+      <span style="display: inline-block; padding: 6px 14px; border: 1.5px solid red; color: black; border-radius: 5px; font-size: 16px; text-align: center; margin-left:10px;">
+        いいね数：<%= @review.favorites.count %>
+      </span>
     <% end %>
   </div>
 

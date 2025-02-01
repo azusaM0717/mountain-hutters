@@ -11,7 +11,7 @@ class Review < ApplicationRecord
   validates :rating, presence: true
   validate :images_limit
 
-  #退会したuserのレビューを非表示にするための記述
+  #is_active: trueに紐づくレコードを取得するためのscope　＝＞　退会したユーザーのレビューおよびコメントは非表示になる
   scope :active_users, -> { joins(:user).where(users: { is_active: true })}
   
   def favorited_by?(user)
