@@ -31,7 +31,7 @@
         <% if @review.images.attached? %>
           <p><strong>画像：</strong></p>
           <% @review.images.each do |image| %>
-            <%= image_tag image, width: 200, height: 150 %>
+            <%= image_tag image, class: "review-image" %>
           <% end %>
         <% end %>
         <p><strong>投稿者：</strong>
