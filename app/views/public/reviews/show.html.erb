@@ -26,7 +26,7 @@
         <p><strong>山小屋名：</strong>
           <%= link_to @review.hut.name, hut_path(@review.hut), data: { turbolinks: false } %>
         </p>
-        <p><strong>レビュー：</strong><%= @review.body %></p>
+        <p><strong>レビュー：</strong><%= simple_format(@review.body, sanitaize: true) %></p>
         <div class="mb-3"><strong>評価：</strong><%= render "output_star", review: @review %></div>
         <% if @review.images.attached? %>
           <p><strong>画像：</strong></p>
