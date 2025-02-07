@@ -55,7 +55,9 @@
         <%= f.submit "送信する", class: "btn btn-primary mb-3" %>
       <% end %>
       
-      <h4>コメント一覧（コメント件数：<%= @comments.count %>）</h4>
+      <h4 id="comment_count">
+        コメント一覧（コメント件数：<%= @comments.count %>）
+      </h4>
       <div id="review_comments_<%= @review.id%>">
         <%= render "public/comments/index", comments: @comments %>
       </div>

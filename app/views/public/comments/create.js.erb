@@ -1,2 +1,4 @@
 $("#review_comments_<%= @review.id %>").html("<%= j(render 'public/comments/index', comments: @comments) %>");
+$("#comment_count").text("コメント一覧（コメント件数：<%= @comments.count %>）");
 $("#comment_body").val("");  
+
