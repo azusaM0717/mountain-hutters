@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     get "/users/favorites" => "users#favorites"
     get "/mypage" => "users#show"
     get "/mypage/calendars", to: "calendars#index", as: :mypage_calendars
+    post "/mypage/calendars", to: "calendars#create"
     get "mypage/calendars/events", to: "calendars#events", as: 'calendars_events'
     get "/information/edit" => "users#edit"
     patch "/users/edit" => "users#update"
