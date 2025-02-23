@@ -1,5 +1,6 @@
 class Hut < ApplicationRecord
   has_many :reviews, dependent: :destroy
+  has_many :calendars
 
   validates :name, presence: true
   validates :latitude, presence: true, numericality: { greater_than_or_equal_to: -90, less_than_or_equal_to: 90 }

@@ -1,29 +1,30 @@
 class Public::CalendarsController < ApplicationController
-  before_action :set_user
+  before_action :authenticate_user!
   before_action :set_calendar, only: [:edit, :update, :destroy]
 
   def index
-    @calendars = @user.calendars
+    @calendars = current_user.calendars
   end
 
   def new
-    @calendar = @user.calendars.new
+    @calendar = current_user.calendars.new
   end
 
   def create
     @calendar = @user.calendars.new(calendar_params)
     if @calendar.save
-      redirect_to user_calendars_path(@user), notice: "登山スケジュールを追加しました"
+      redirect_to mypage_calendars_path, notice: "登山スケジュールを追加しました"
     else
       render :new
     end
   end
 
-  def edit; end
+  def edit
+  end
 
   def update
     if @calendar.update(calendar_params)
-      redirect_to user_calendars_path(@user), notice: "登山スケジュールを更新しました"
+      redirect_to mypage_calendars_path, notice: "登山スケジュールを更新しました"
     else
       render :edit
     end
@@ -31,16 +32,12 @@ class Public::CalendarsController < ApplicationController
 
   def destroy
     @calendar.destroy
-    redirect_to user_calendars_path(@user), notice: "登山スケジュールを削除しました"
+    redirect_to mypage_calendars_path, notice: "登山スケジュールを削除しました"
   end
 
   private
-  def set_user
-    @user = User.find(params[:user_id])
-  end
-
   def set_calendar
-    @calendar = @user.calendars.find(params[:id])
+    @calendar = current_user.calendars.find(params[:id])
   end
 
   def calendar_params
