@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
     get "/users/favorites" => "users#favorites"
     get "/mypage" => "users#show"
+    get "/mypage/calendars", to: "calendars#index", as: :mypage_calendars
     get "/information/edit" => "users#edit"
     patch "/users/edit" => "users#update"
     resources :users, only: [:show, :update] do
