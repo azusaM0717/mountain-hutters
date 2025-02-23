@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_01_23_035423) do
+ActiveRecord::Schema.define(version: 2025_02_23_071601) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -50,6 +50,18 @@ ActiveRecord::Schema.define(version: 2025_01_23_035423) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+  end
+
+  create_table "calendars", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "hut_id", null: false
+    t.string "title"
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hut_id"], name: "index_calendars_on_hut_id"
+    t.index ["user_id"], name: "index_calendars_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -116,6 +128,8 @@ ActiveRecord::Schema.define(version: 2025_01_23_035423) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "calendars", "huts"
+  add_foreign_key "calendars", "users"
   add_foreign_key "comments", "reviews"
   add_foreign_key "comments", "users"
   add_foreign_key "notifications", "users"
