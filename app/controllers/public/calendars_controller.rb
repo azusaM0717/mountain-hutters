@@ -4,6 +4,30 @@ class Public::CalendarsController < ApplicationController
 
   def index
     @calendars = current_user.calendars
+
+    respond_to do |format|
+      format.html  # 通常のHTML表示
+      format.json { render json: @calendars.map { |calendar| 
+        { 
+          id: calendar.id,
+          title: calendar.title,
+          start: calendar.start_date,
+          end: calendar.end_date
+        } 
+      }}
+    end
+  end
+
+  def events
+    @calendars = current_user.calendars
+    events = @calendars.map do |calendar|
+      {
+        title: calendar.title,
+        start: calendar.start_date,
+        end: calendar.end_date,
+      }
+    end
+    render json: events
   end
 
   def new
