@@ -54,22 +54,6 @@ def create
 end
 
 
-  def edit
-  end
-
-  def update
-    if @calendar.update(calendar_params)
-      redirect_to mypage_calendars_path, notice: "登山スケジュールを更新しました"
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    @calendar.destroy
-    redirect_to mypage_calendars_path, notice: "登山スケジュールを削除しました"
-  end
-
   private
   def set_calendar
     @calendar = current_user.calendars.find(params[:id])
