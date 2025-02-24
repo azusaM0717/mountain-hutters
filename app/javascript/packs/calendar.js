@@ -12,11 +12,14 @@ document.addEventListener('turbolinks:load', function() {
       initialView: 'dayGridMonth',
       events: '/mypage/calendars/events',
       dateClick: function(info) {
-        // Bootstrap 5のモーダルを表示
-        var modal = new bootstrap.Modal(document.getElementById('createEventModal'));  // 修正箇所
-        modal.show();
+        let modalElement = document.getElementById('createEventModal');
 
-        // モーダルフォームにクリックされた日付をセット
+        // すでにインスタンスが存在する場合はそれを使用
+        if (!window.eventModal) {
+          window.eventModal = new bootstrap.Modal(modalElement);
+        }
+        window.eventModal.show(); // モーダルを開く
+
         document.getElementById('eventStartDate').value = info.dateStr;
         document.getElementById('eventEndDate').value = info.dateStr;
       }
@@ -24,7 +27,6 @@ document.addEventListener('turbolinks:load', function() {
 
     calendar.render();
 
-    // モーダルフォームの送信イベント
     document.getElementById('createEventForm').addEventListener('submit', function(event) {
       event.preventDefault();
 
@@ -54,20 +56,26 @@ document.addEventListener('turbolinks:load', function() {
         }
         return response.json();
       })
+      
       .then(data => {
-        // サーバーから受け取った新しいイベントをカレンダーに追加
+        let endDate = new Date(data.end);
+        endDate.setDate(endDate.getDate() + 1); // `end` を1日後ろにずらす
+      
         calendar.addEvent({
           id: data.id,
           title: data.title,
           start: data.start,
-          end: data.end
+          end: endDate.toISOString().split("T")[0] // yyyy-mm-dd 形式に変換
         });
-
+      
+        console.log("追加されたイベント：", data);
+      
         // モーダルを閉じる
-        var modalElement = document.getElementById('createEventModal');
-        var modalInstance = bootstrap.Modal.getInstance(modalElement);  // モーダルのインスタンスを取得
-        modalInstance.hide();
+        if (window.eventModal) {
+          window.eventModal.hide();
+        }
       })
+      
       .catch(error => {
         console.error("Error creating event:", error.message);
       });
